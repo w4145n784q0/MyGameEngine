@@ -2,13 +2,15 @@
 #include <Windows.h>
 #include"Direct3D.h"
 #include<tchar.h>
+#include"Quad.h"
 
-
+namespace{
 //定数宣言
 const wchar_t* WIN_CLASS_NAME = L"SampleGame";//ウィンドウクラス名
 const wchar_t* APP_GAME = L"サンプルゲーム";//アプリケーション名
 const int WINDOW_WIDTH = 800;//ウィンドウ幅
 const int WINDOW_HEIGHT = 600;//ウィンドウの高さ
+}
 
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -62,11 +64,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     //Direct3D初期化
     Direct3D::Initialize(winW, winH, hWnd);
 
+    Quad* qu = new Quad;
+    qu->Initialize();
+
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
     while (msg.message != WM_QUIT)
     {
+
+
         //メッセージあり
         if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
@@ -78,16 +85,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         else
         {
             //ゲームの処理
-
             Direct3D::BeginDraw();
 
-            //描画処理
+            qu->Draw();
 
+            //描画処理
             Direct3D::EndDraw();
         }
     }
 
     Direct3D::Release();
+    qu->Release();
 	return 0;
 }
 

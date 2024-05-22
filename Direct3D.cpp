@@ -97,10 +97,12 @@ void Direct3D::InitShader()
 {
     // 頂点シェーダの作成（コンパイル）
     ID3DBlob* pCompileVS = nullptr;
-    D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_1", NULL, 0, &pCompileVS, NULL);
+    D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "VS", "vs_5_0", NULL, 0, &pCompileVS, NULL);
     pDevice->CreateVertexShader(pCompileVS->GetBufferPointer(), pCompileVS->GetBufferSize(), NULL, &pVertexShader);
    
     //頂点インプットレイアウト
+    //pcはCPUが６４bitでdoubleの方が効率いいが、DirectXが最適化してくれる
+    
     D3D11_INPUT_ELEMENT_DESC layout[] = {
         { "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,  D3D11_INPUT_PER_VERTEX_DATA, 0 },	//位置
     };
@@ -110,15 +112,15 @@ void Direct3D::InitShader()
 
     // ピクセルシェーダの作成（コンパイル）
     ID3DBlob* pCompilePS = nullptr;
-    D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_1", NULL, 0, &pCompilePS, NULL);
+    D3DCompileFromFile(L"Simple3D.hlsl", nullptr, nullptr, "PS", "ps_5_0", NULL, 0, &pCompilePS, NULL);
     pDevice->CreatePixelShader(pCompilePS->GetBufferPointer(), pCompilePS->GetBufferSize(), NULL, &pPixelShader);
     pCompilePS->Release();
 
     //ラスタライザ作成
     D3D11_RASTERIZER_DESC rdc = {};
-    rdc.CullMode = D3D11_CULL_BACK;
-    rdc.FillMode = D3D11_FILL_SOLID;
-    rdc.FrontCounterClockwise = FALSE;
+    rdc.CullMode = D3D11_CULL_BACK; //多角形の裏側は描画しない(カリング)
+    rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
+    rdc.FrontCounterClockwise = FALSE;//反時計回りを表にするかどうか（がfalseなので時計回りが表）
     pDevice->CreateRasterizerState(&rdc, &pRasterizerState);
 
     //それぞれをデバイスコンテキストにセット
@@ -133,7 +135,7 @@ void Direct3D::BeginDraw()
 {//ゲームの処理
 
             //背景の色
-    float clearColor[4] = { 0.0f, 0.5f, 0.5f, 1.0f };//R,G,B,A
+    float clearColor[4] = { 1.0f,1.0f,0.87f, 1.0f };//R,G,B,A
 
     //画面をクリア
     pContext->ClearRenderTargetView(pRenderTargetView, clearColor);
@@ -142,12 +144,13 @@ void Direct3D::BeginDraw()
     //描画処理
 
 
-    //スワップ（バックバッファを表に表示する）
-    pSwapChain->Present(0, 0);
+  
 }
 
 void Direct3D::EndDraw()
 {
+    //スワップ（バックバッファを表に表示する）
+    pSwapChain->Present(0, 0);
 }
 
 void Direct3D::Release()

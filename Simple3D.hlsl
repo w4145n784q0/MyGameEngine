@@ -4,6 +4,7 @@
 //───────────────────────────────────────
 cbuffer global
 {
+    //変換行列、視点、光源
     float4x4 matWVP; // ワールド・ビュー・プロジェクションの合成行列
 };
 
@@ -36,5 +37,5 @@ VS_OUT VS(float4 pos : POSITION)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-    return float4(1, 1, 1, 1);
+    return float4(0, 0, 0, 1);
 }
