@@ -119,8 +119,12 @@ void Direct3D::InitShader()
     //ラスタライザ作成
     D3D11_RASTERIZER_DESC rdc = {};
     rdc.CullMode = D3D11_CULL_BACK; //多角形の裏側は描画しない(カリング)
-    rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
+  //  rdc.CullMode = D3D11_CULL_FRONT;//cullmodeの切り替え
+ //   rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
+    rdc.FillMode = D3D11_FILL_WIREFRAME;//ワイヤフレームを出す
     rdc.FrontCounterClockwise = FALSE;//反時計回りを表にするかどうか（がfalseなので時計回りが表）
+    //rdc.FrontCounterClockwise = TRUE;//
+
     pDevice->CreateRasterizerState(&rdc, &pRasterizerState);
 
     //それぞれをデバイスコンテキストにセット
@@ -134,7 +138,7 @@ void Direct3D::InitShader()
 void Direct3D::BeginDraw()
 {//ゲームの処理
 
-            //背景の色
+    //背景の色
     float clearColor[4] = { 1.0f,1.0f,0.87f, 1.0f };//R,G,B,A
 
     //画面をクリア

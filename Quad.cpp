@@ -14,14 +14,45 @@ void Quad::Initialize()
 {// 頂点情報
 	XMVECTOR vertices[] =
 	{
-		XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（左上）
-		XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（右上）
-		XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（右下）
-		XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（左下）		
+		//四角形
+		//XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（左上）
+		//XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	// 四角形の頂点（右上）
+		//XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（右下）
+		//XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f),	// 四角形の頂点（左下）		
+
+
+		//五角形
+		/*XMVectorSet(0.5f,  1.2f, 0.0f, 0.0f),//五角形の頂点（一番上）
+		XMVectorSet(-0.3f, 0.5f, 0.0f, 0.0f),//五角形の頂点（左上）
+		XMVectorSet(0.0f, -0.5f, 0.0f, 0.0f),//五角形の頂点（左下）
+		XMVectorSet(1.0f, -0.5f, 0.0f, 0.0f),//五角形の頂点（右下）
+		XMVectorSet(1.3f, 0.5f, 0.0f, 0.0f),//五角形の頂点（右上）*/
+
+		//6角形
+		/*XMVectorSet(0.5f,  1.0f, 0.0f, 0.0f),//六角形の頂点（右上）
+		XMVectorSet(1.0f,  0.0f, 0.0f, 0.0f),//六角形の頂点（右中央）
+		XMVectorSet(0.5f,  -1.0f, 0.0f, 0.0f),//六角形の頂点（右下）
+		XMVectorSet(-0.5f,  -1.0f, 0.0f, 0.0f),//六角形の頂点（左下）
+		XMVectorSet(-1.0f,  0.0f, 0.0f, 0.0f),//六角形の頂点（左中央）
+		XMVectorSet(-0.5f,  1.0f, 0.0f, 0.0f),//六角形の頂点（左上）*/
+
+		//
+		XMVectorSet(-1.0f,  0.0f, 1.0f, 0.0f),	// 四角形の頂点（左上）
+		XMVectorSet(1.0f,  0.0f, 1.0f, 0.0f),	// 四角形の頂点（右上）
+		XMVectorSet(1.0f, 0.0f, -1.0f, 0.0f),	// 四角形の頂点（右下）
+		XMVectorSet(-1.0f, 0.0f, -1.0f, 0.0f),	// 四角形の頂点（左下）	
+		XMVectorSet(0.0f,3.0f, 0.0f, 0.0f),
 	};
 
-	//インデックス情報
-	int index[] = { 0,2,3, 0,1,2 };
+	//インデックス情報 四角形
+	int index[] = { 0,2,3, 0,1,2, 4,1,2,};
+
+	//五角形
+	//int index[] = { 0,1,2, 0,2,3, 0,3,4, };
+
+	//六角形
+	//int index[] = {0,1,2 };
+
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -94,15 +125,16 @@ void Quad::Draw()
 	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
 	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
 
-	Direct3D::pContext->DrawIndexed(6, 0, 0);
+	//Direct3D::pContext->DrawIndexed(6, 0, 0); 四角形
+	//Direct3D::pContext->DrawIndexed(9, 0, 0); 五角形
+
+	Direct3D::pContext->DrawIndexed(9, 0, 0);
 }
+	
 
 void Quad::Release()
 {
 	pConstantBuffer_->Release();
 	pIndexBuffer_->Release();
 	pVertexBuffer_->Release();
-	/*ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
-	ID3D11Buffer* pIndexBuffer_;
-	ID3D11Buffer* pConstantBuffer_;*/
 }

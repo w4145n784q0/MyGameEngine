@@ -5,6 +5,8 @@
 //ƒŠƒ“ƒJ
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
+#define SAFE_DELETE(p) if (p != nullptr) { delete p; p = nullptr; }
+
 
 namespace Direct3D
 {
