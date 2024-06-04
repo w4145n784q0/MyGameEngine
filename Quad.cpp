@@ -10,8 +10,11 @@ Quad::~Quad()
 {
 }
 
-void Quad::Initialize()
-{// 頂点情報
+HRESULT Quad::Initialize()
+{
+	HRESULT hr;
+	
+	// 頂点情報
 	XMVECTOR vertices[] =
 	{
 		//四角形
@@ -37,15 +40,15 @@ void Quad::Initialize()
 		XMVectorSet(-0.5f,  1.0f, 0.0f, 0.0f),//六角形の頂点（左上）*/
 
 		//
-		XMVectorSet(-1.0f,  0.0f, 1.0f, 0.0f),	// 四角形の頂点（左上）
-		XMVectorSet(1.0f,  0.0f, 1.0f, 0.0f),	// 四角形の頂点（右上）
-		XMVectorSet(1.0f, 0.0f, -1.0f, 0.0f),	// 四角形の頂点（右下）
-		XMVectorSet(-1.0f, 0.0f, -1.0f, 0.0f),	// 四角形の頂点（左下）	
-		XMVectorSet(0.0f,3.0f, 0.0f, 0.0f),
+		XMVectorSet(-0.5f,  0.0f, 1.0f, 0.0f),	// 四角錐の頂点（左上）
+		XMVectorSet(1.5f,  0.0f, 1.0f, 0.0f),	// 四角錐の頂点（右上）
+		XMVectorSet(0.5f, 0.0f, -1.0f, 0.0f),	// 四角錐の頂点（右下）
+		XMVectorSet(-1.5f, 0.0f, -1.0f, 0.0f),	// 四角錐の頂点（左下）	
+		XMVectorSet(0.0f, 3.0f, 0.0f, 0.0f),     //四角錐の頂点（一番上）
 	};
 
-	//インデックス情報 四角形
-	int index[] = { 0,2,3, 0,1,2, 4,1,2,};
+	/*//インデックス情報 四角形
+	int index[] = { 0,2,3, 0,1,2, }*/
 
 	//五角形
 	//int index[] = { 0,1,2, 0,2,3, 0,3,4, };
@@ -53,6 +56,9 @@ void Quad::Initialize()
 	//六角形
 	//int index[] = {0,1,2 };
 
+
+	//インデックス情報 四角形
+	int index[] = { 0,2,3, 0,1,2, 0,1,4, 1,2,4, 2,3,4, 0,3,4, };
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -64,8 +70,13 @@ void Quad::Initialize()
 	bd_vertex.StructureByteStride = 0;
 	D3D11_SUBRESOURCE_DATA data_vertex;
 	data_vertex.pSysMem = vertices;
-	Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
+	hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 
+	if (FAILED(hr))
+	{
+		MessageBox(NULL,L"頂点バッファの作成に失敗",NULL,MB_OK);
+		return hr;
+	}
 	
 
 	// インデックスバッファを生成する
@@ -80,7 +91,12 @@ void Quad::Initialize()
 	InitData.pSysMem = index;
 	InitData.SysMemPitch = 0;
 	InitData.SysMemSlicePitch = 0;
-	Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+	hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+	if (FAILED(hr))
+	{
+		MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
+		return hr;
+	}
 
 	//コンスタントバッファ作成
 	D3D11_BUFFER_DESC cb;
@@ -92,7 +108,14 @@ void Quad::Initialize()
 	cb.StructureByteStride = 0;
 
 	// コンスタントバッファの作成
-	Direct3D::pDevice->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
+	hr = Direct3D::pDevice->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
+	if (FAILED(hr))
+	{
+		MessageBox(NULL, L"コンスタントバッファの作成に失敗", NULL, MB_OK);
+		return hr;
+	}
+
+	return S_OK;
 }
 
 void Quad::Draw()
@@ -128,13 +151,13 @@ void Quad::Draw()
 	//Direct3D::pContext->DrawIndexed(6, 0, 0); 四角形
 	//Direct3D::pContext->DrawIndexed(9, 0, 0); 五角形
 
-	Direct3D::pContext->DrawIndexed(9, 0, 0);
+	Direct3D::pContext->DrawIndexed(18, 0, 0);//四角錐
 }
 	
 
 void Quad::Release()
 {
-	pConstantBuffer_->Release();
-	pIndexBuffer_->Release();
-	pVertexBuffer_->Release();
+	SAFE_RELEASE(pConstantBuffer_);
+	SAFE_RELEASE(pIndexBuffer_);
+	SAFE_RELEASE(pVertexBuffer_);
 }

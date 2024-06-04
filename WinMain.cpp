@@ -62,7 +62,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     ShowWindow(hWnd, nCmdShow);
 
     //Direct3D‰Šú‰»
-    Direct3D::Initialize(winW, winH, hWnd);
+    HRESULT hr =  Direct3D::Initialize(winW, winH, hWnd);
+    if (FAILED(hr))
+    {
+        return 0;
+    }
 
     Quad* qu = new Quad;
     qu->Initialize();
