@@ -3,6 +3,7 @@
 #include"Direct3D.h"
 #include<tchar.h>
 #include"Quad.h"
+#include"Camera.h"
 
 namespace{
 //定数宣言
@@ -68,6 +69,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         return 0;
     }
 
+    Camera::Initialize();
+
     Quad* qu = new Quad;
     qu->Initialize();
 
@@ -88,10 +91,34 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         //メッセージなし
         else
         {
+            //カメラの更新
+            Camera::Update();
             //ゲームの処理
             Direct3D::BeginDraw();
 
-            qu->Draw();
+            //回転
+            static float rot = 0.0;
+            rot += 0.01;
+            // XMConvertToRadians
+            //XMCOnvertToDegrees
+            XMMATRIX rmat = XMMatrixRotationY(rot);
+        
+            static float factor = 0.0;
+            factor += 0.001;
+            //float scale = 1.5 + sin(factor);
+            //XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
+           // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
+          //  XMMATRIX mat = smat * rmat * tmat;
+
+            
+
+            XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 3.0*sin(factor), 0.0f);
+
+            //単位行列　数字の1と同じ
+            XMMATRIX mat = XMMatrixIdentity();
+
+            mat = rmat * tmat;
+            qu->Draw(mat);
 
             //描画処理
             Direct3D::EndDraw();
