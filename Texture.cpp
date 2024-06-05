@@ -5,6 +5,11 @@
 
 using namespace DirectX;
 
+Texture::Texture()
+	:pSampler_(nullptr),pSRV_(nullptr)
+{
+}
+
 HRESULT Texture::Load(std::string fileName)
 {
 	

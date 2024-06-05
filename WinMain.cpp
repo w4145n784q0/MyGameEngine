@@ -99,13 +99,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //回転
             static float rot = 0.0;
             rot += 0.01;
-            // XMConvertToRadians
-            //XMCOnvertToDegrees
+            //角度をラジアンにするなら XMConvertToRadians
+            //ラジアンを角度にするならXMCOnvertToDegrees
             XMMATRIX rmat = XMMatrixRotationY(rot);
         
             static float factor = 0.0;
             factor += 0.001;
-            //float scale = 1.5 + sin(factor);
+            float scale = 1.5 + sin(factor);
             //XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
            // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
           //  XMMATRIX mat = smat * rmat * tmat;
