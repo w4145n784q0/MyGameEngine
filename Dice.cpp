@@ -1,65 +1,81 @@
-#include "Quad.h"
+#include "Dice.h"
 #include"Camera.h"
 
-Quad::Quad(): pVertexBuffer_(nullptr), 
-pIndexBuffer_(nullptr),
-pConstantBuffer_(nullptr),
-pTexture_(nullptr)
+Dice::Dice()
 {
 }
 
-Quad::~Quad()
+Dice::~Dice()
 {
 }
 
-HRESULT Quad::Initialize()
+HRESULT Dice::Initialize()
 {
 	HRESULT hr;
-	
+
 	// 頂点情報
 	VERTEX vertices[] =
 	{
-		//四角形
-		{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), {0.0, 0.0, 0.0, 0.0}},// 四角形の頂点（左上）
-		{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	 {1.0, 0.0, 0.0, 0.0}},// 四角形の頂点（右上）
-		{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	 {1.0, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
-		{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), {0.0, 1.0, 0.0, 0.0}},	// 四角形の頂点（左下）		
+		//四角形no立方体
+		//{ XMVectorSet(-1.0f,  1.0f, 0.0f, 0.0f), {0.0, 0.0, 0.0, 0.0}},// 四角形の頂点（左上）
+		//{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f),	 {1.0, 0.0, 0.0, 0.0}},// 四角形の頂点（右上）
+		//{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),	 {1.0, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
+		//{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), {0.0, 1.0, 0.0, 0.0}},	// 四角形の頂点（左下）	
+		 
+		// 四角形の頂点（左上）
+		// 四角形の頂点（右上）
+		// 四角形の頂点（右下）
+		// 四角形の頂点（左下
+			
+		//1 正面
+		{ XMVectorSet(-1.0f,  1.0f, 1.0f, 0.0f), {0.0, 0.0, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(1.0f,  1.0f, 1.0f, 0.0f),	 {0.25, 0.0, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f),	 {0.25, 0.5, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(-1.0f, -1.0f, 1.0f, 0.0f), {0.0, 0.5, 0.0, 0.0}},// 四角形の頂点（左下）
+
+		//3　上
+		{ XMVectorSet(-1.0f,  1.0f, -1.0f, 0.0f), {0.5, 0.0, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(1.0f,  1.0f, -1.0f, 0.0f),	 {0.75, 0.0, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(1.0f, 1.0f, 1.0f, 0.0f),	 {0.75, 0.5, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(-1.0f, 1.0f, 1.0f, 0.0f), {0.5, 0.5, 0.0, 0.0}},// 四角形の頂点（左下）
+
+		//6　後ろ
+		{ XMVectorSet(-1.0f,  1.0f, -1.0f, 0.0f), {0.25, 0.5, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(1.0f,  1.0f, -1.0f, 0.0f),{0.5, 0.5, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f), {0.5, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f), {0.25, 1.0, 0.0, 0.0}},// 四角形の頂点（左下）
+
+		//2 左
+		{ XMVectorSet(-1.0f,  1.0f, -1.0f, 0.0f), {0.25, 0.5, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(-1.0f, 1.0f, 1.0f, 0.0f),	{0.5, 0.5, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(-1.0f, -1.0f, 1.0f, 0.0f), {0.5, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(-1.0f, -1.0f, -1.0f, 0.0f), {0.25, 1.0, 0.0, 0.0}},// 四角形の頂点（左下）
+
+		//5右
+		{ XMVectorSet(1.0f,  1.0f, 1.0f, 0.0f), {0.25, 0.5, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(1.0f, 1.0f, -1.0f, 0.0f),	{0.5, 0.5, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f), {0.5, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f), {0.25, 1.0, 0.0, 0.0}},// 四角形の頂点（左下）
+
+		//4下
+		{ XMVectorSet(-1.0f,  -1.0f, -1.0f, 0.0f), {0.25, 0.5, 0.0, 0.0}},// 四角形の頂点（左上）
+		{ XMVectorSet(1.0f, -1.0f, -1.0f, 0.0f),	{0.5, 0.5, 0.0, 0.0}},//四角形の頂点（右上）
+		{ XMVectorSet(1.0f, -1.0f, 1.0f, 0.0f),	 {0.5, 1.0, 0.0, 0.0}},// 四角形の頂点（右下）
+		{ XMVectorSet(-1.0f, -1.0f, 1.0f, 0.0f), {0.25, 1.0, 0.0, 0.0}},// 四角形の頂点（左下）
+
+
+
+		/*{ XMVectorSet(-1.0f,  1.0f, -2.0f, 0.0f), {0.0, 0.0, -2.0, 0.0}},
+		{ XMVectorSet(1.0f,  1.0f, -2.0f, 0.0f),  {0.25, 0.0, -2.0, 0.0}},
+		{ XMVectorSet(1.0f, -1.0f, -2.0f, 0.0f),  {0.25, 0.5, -2.0, 0.0}},
+		{ XMVectorSet(-1.0f, -1.0f, -2.0f, 0.0f), {0.0, 0.5, -2.0, 0.0}},*/
 
 	};
-		//五角形
-		/*XMVectorSet(0.5f,  1.2f, 0.0f, 0.0f),//五角形の頂点（一番上）
-		XMVectorSet(-0.3f, 0.5f, 0.0f, 0.0f),//五角形の頂点（左上）
-		XMVectorSet(0.0f, -0.5f, 0.0f, 0.0f),//五角形の頂点（左下）
-		XMVectorSet(1.0f, -0.5f, 0.0f, 0.0f),//五角形の頂点（右下）
-		XMVectorSet(1.3f, 0.5f, 0.0f, 0.0f),//五角形の頂点（右上）*/
-
-		//6角形
-		/*XMVectorSet(0.5f,  1.0f, 0.0f, 0.0f),//六角形の頂点（右上）
-		XMVectorSet(1.0f,  0.0f, 0.0f, 0.0f),//六角形の頂点（右中央）
-		XMVectorSet(0.5f,  -1.0f, 0.0f, 0.0f),//六角形の頂点（右下）
-		XMVectorSet(-0.5f,  -1.0f, 0.0f, 0.0f),//六角形の頂点（左下）
-		XMVectorSet(-1.0f,  0.0f, 0.0f, 0.0f),//六角形の頂点（左中央）
-		XMVectorSet(-0.5f,  1.0f, 0.0f, 0.0f),//六角形の頂点（左上）*/
-
-		//四角錐
-		//XMVectorSet(-0.5f,  0.0f, 1.0f, 0.0f),	// 四角錐の頂点（左上）
-		//XMVectorSet(1.5f,  0.0f, 1.0f, 0.0f),	// 四角錐の頂点（右上）
-		//XMVectorSet(0.5f, 0.0f, -1.0f, 0.0f),	// 四角錐の頂点（右下）
-		//XMVectorSet(-1.5f, 0.0f, -1.0f, 0.0f),	// 四角錐の頂点（左下）	
-		//XMVectorSet(0.0f, 3.0f, 0.0f, 0.0f),     //四角錐の頂点（一番上）
-
-	/*//インデックス情報 四角形
-	int index[] = { 0,2,3, 0,1,2, }*/
-
-	//五角形
-	//int index[] = { 0,1,2, 0,2,3, 0,3,4, };
-
-	//六角形
-	//int index[] = {0,1,2 };
-
 
 	//インデックス情報 四角形
-	int index[] = { 0,2,3, 0,1,2, 0,1,4, 1,2,4, 2,3,4, 0,3,4, };
+	//int index[] = { 0,2,3, 0,1,2, 4,1,0, 4,5,1, 4,6,7, 4,5,6, 4,3,7, 4,0,3, 1,6,2, 1,5,6, 7,2,3, 7,6,2 };
+	int index[] = {1,3,2, 1,0,3, 4,1,0, 4,5,1, 4,6,7, 4,5,6,  4,3,7, 4,0,3, 1,6,2, 1,5,6, 7,3,2,  };
+//	int index[] = {   0,2,3, 0,1,2, 1,7,2, 1,5,7, 4,1,0, 4,5,1, 6,2,3, 6,7,2, 4,3,6, 4,0,3, 4,7,6, 4,5,7 };
 
 	// 頂点データ用バッファの設定
 	D3D11_BUFFER_DESC bd_vertex;
@@ -75,10 +91,10 @@ HRESULT Quad::Initialize()
 
 	if (FAILED(hr))
 	{
-		MessageBox(NULL,L"頂点バッファの作成に失敗",NULL,MB_OK);
+		MessageBox(NULL, L"頂点バッファの作成に失敗", NULL, MB_OK);
 		return hr;
 	}
-	
+
 
 	// インデックスバッファを生成する
 	D3D11_BUFFER_DESC   bd;
@@ -122,12 +138,12 @@ HRESULT Quad::Initialize()
 	return S_OK;
 }
 
-void Quad::Draw()
+void Dice::Draw()
 {
-	D3D11_MAPPED_SUBRESOURCE pdata;
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開
@@ -152,23 +168,13 @@ void Quad::Draw()
 
 	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
 	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+	//
 
-	Direct3D::pContext->DrawIndexed(6, 0, 0); //四角形
-	//Direct3D::pContext->DrawIndexed(9, 0, 0); 五角形
-
-	//Direct3D::pContext->DrawIndexed(18, 0, 0);//四角錐
+	Direct3D::pContext->DrawIndexed(36, 0, 0); //四角形
 }
 
-void Quad::Draw(XMMATRIX& worldMatrix)
-{
-	//コンスタントバッファに渡す情報
-	
-	//XMVECTOR position = { 0, 3, -10, 0 };	//カメラの位置
-	//XMVECTOR target = { 0, 0, 0, 0 };	//カメラの焦点
-	//XMMATRIX view = XMMatrixLookAtLH(position, target, XMVectorSet(0, 1, 0, 0));	//ビュー行列
-	//XMMATRIX proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, 800.0f / 600.0f, 0.1f, 100.0f);//射影行列
-	////画角、アスペクト比、ニア平面、ファー平面
-
+void Dice::Draw(XMMATRIX& worldMatrix)
+{	
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
@@ -197,16 +203,9 @@ void Quad::Draw(XMMATRIX& worldMatrix)
 	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
 	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
 
-	Direct3D::pContext->DrawIndexed(6, 0, 0); //四角形
-	//Direct3D::pContext->DrawIndexed(9, 0, 0); 五角形
-
-	//Direct3D::pContext->DrawIndexed(18, 0, 0);//四角錐
+	Direct3D::pContext->DrawIndexed(36, 0, 0); //四角形
 }
-	
 
-void Quad::Release()
+void Dice::Release()
 {
-	SAFE_RELEASE(pConstantBuffer_);
-	SAFE_RELEASE(pIndexBuffer_);
-	SAFE_RELEASE(pVertexBuffer_);
 }

@@ -4,6 +4,7 @@
 #include<tchar.h>
 #include"Quad.h"
 #include"Camera.h"
+#include"Dice.h"
 
 namespace{
 //定数宣言
@@ -74,6 +75,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     Quad* qu = new Quad;
     qu->Initialize();
 
+    Dice* di = new Dice();
+    di->Initialize();
+
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
@@ -112,13 +116,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             
 
-            XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 3.0*sin(factor), 0.0f);
+            XMMATRIX tmat = XMMatrixTranslation(0.5*cos(factor), 0.5*sin(factor), 0.0f);
 
             //単位行列　数字の1と同じ
             XMMATRIX mat = XMMatrixIdentity();
 
             mat = rmat * tmat;
-            qu->Draw(mat);
+            //qu->Draw(mat);
+            di->Draw(mat);
 
             //描画処理
             Direct3D::EndDraw();

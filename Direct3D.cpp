@@ -152,10 +152,10 @@ HRESULT Direct3D::InitShader()
 
     //ラスタライザ作成
     D3D11_RASTERIZER_DESC rdc = {};
-    rdc.CullMode = D3D11_CULL_NONE; //多角形の裏側は描画しない(カリング)
-  //  rdc.CullMode = D3D11_CULL_FRONT;//cullmodeの切り替え
+   // rdc.CullMode = D3D11_CULL_NONE; //多角形の裏側は描画しない(カリング)
+    rdc.CullMode = D3D11_CULL_FRONT;//cullmodeの切り替え
     rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
-  //  rdc.FillMode = D3D11_FILL_WIREFRAME;//ワイヤフレームを出す
+    //rdc.FillMode = D3D11_FILL_WIREFRAME;//ワイヤフレームを出す
     rdc.FrontCounterClockwise = FALSE;//反時計回りを表にするかどうか（がfalseなので時計回りが表）
     //rdc.FrontCounterClockwise = TRUE;//
 
