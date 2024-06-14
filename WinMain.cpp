@@ -105,7 +105,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             rot += 0.001;
             //角度をラジアンにするなら XMConvertToRadians
             //ラジアンを角度にするならXMCOnvertToDegrees
-            XMMATRIX rmat = XMMatrixRotationY(rot);
+            XMMATRIX rmat = XMMatrixRotationX(rot);
         
             static float factor = 0.0;
             factor += 0.0001;
