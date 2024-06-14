@@ -28,10 +28,10 @@ class Quad
 	Texture* pTexture_;
 public:
 	Quad();
-	~Quad();
-	HRESULT Initialize();
-	void Draw();
-	void Draw(XMMATRIX& worldMatrix);
-	void Release();
+	virtual ~Quad();
+	virtual HRESULT Initialize();
+	virtual void Draw();
+	virtual void Draw(XMMATRIX& worldMatrix);
+	virtual void Release();
 };
 

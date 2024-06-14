@@ -72,8 +72,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
-    Quad* qu = new Quad;
-    qu->Initialize();
+   /* Quad* qu = new Quad;
+    qu->Initialize();*/
 
     Dice* di = new Dice();
     di->Initialize();
@@ -102,13 +102,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             //回転
             static float rot = 0.0;
-            rot += 0.01;
+            rot += 0.001;
             //角度をラジアンにするなら XMConvertToRadians
             //ラジアンを角度にするならXMCOnvertToDegrees
             XMMATRIX rmat = XMMatrixRotationY(rot);
         
             static float factor = 0.0;
-            factor += 0.001;
+            factor += 0.0001;
             float scale = 1.5 + sin(factor);
             //XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
            // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
@@ -116,7 +116,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             
 
-            XMMATRIX tmat = XMMatrixTranslation(0.5*cos(factor), 0.5*sin(factor), 0.0f);
+            XMMATRIX tmat = XMMatrixTranslation(0.1*cos(factor), 0.1*sin(factor), 0.0f);
 
             //単位行列　数字の1と同じ
             XMMATRIX mat = XMMatrixIdentity();
@@ -130,7 +130,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         }
     }
 
-    SAFE_DELETE(qu);
+  //  SAFE_DELETE(qu);
+    SAFE_DELETE(di);
     Direct3D::Release();
 	return 0;
 }
