@@ -15,7 +15,7 @@ HRESULT Dice::Initialize()
 
 	// 頂点情報
 	VERTEX vertices[] =
-	{		
+	{
 		////1 正面
 		//{ XMVectorSet(-1.0f, 1.0f, -1.0f, 0.0f), {0.0, 0.0, 0.0, 0.0}},// 四角形の頂点（左上）
 		//{ XMVectorSet( 1.0f, 1.0f, -1.0f, 0.0f),	{0.25, 0.0, 0.0, 0.0}},//四角形の頂点（右上）
@@ -56,35 +56,35 @@ HRESULT Dice::Initialize()
 		//{ XMVectorSet(1.0f,  1.0f, 0.0f, 0.0f), XMVectorSet(1.0, 0.0, 0.0, 0.0)},	// 四角形の頂点（右上）, UV
 		//{ XMVectorSet(1.0f, -1.0f, 0.0f, 0.0f),  XMVectorSet(1.0, 1.0, 0.0, 0.0)},	// 四角形の頂点（右下）, UV
 		//{ XMVectorSet(-1.0f, -1.0f, 0.0f, 0.0f), XMVectorSet(0.0, 1.0, 0.0, 0.0)}	// 四角形の頂点（左下）, UV
-		{{ -1.0f,  1.0f, -1.0f },  XMVectorSet(0.0, 0.0, 0.0, 0.0) },
-		{{  1.0f,  1.0f, -1.0f },  XMVectorSet(0.25, 0.0, 0.0, 0.0)},
-		{{ -1.0f, -1.0f, -1.0f },  XMVectorSet(0.0, 0.5, 0.0, 0.0)},
-		{{  1.0f, -1.0f, -1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0)},
+		{{ -1.0f,  1.0f, -1.0f },  XMVectorSet(0.0, 0.0, 0.0, 0.0) ,XMVectorSet(0.0f,0.0f,0.0f,0.0f)},
+		{{  1.0f,  1.0f, -1.0f },  XMVectorSet(0.25, 0.0, 0.0, 0.0),XMVectorSet(0.0f,0.0f,0.0f,0.0f)},
+		{{ -1.0f, -1.0f, -1.0f },  XMVectorSet(0.0, 0.5, 0.0, 0.0),XMVectorSet(0.0f, 0.0f, 0.0f,0.0f)},
+		{{  1.0f, -1.0f, -1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0),XMVectorSet(0.0f, 0.0f, 0.0f,0.0f)},
 
-		{{ -1.0f,  1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0)},
-		{{ -1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 1.0, 0.0, 0.0)},
-		{{  1.0f,  1.0f,  1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0)},
-		{{  1.0f, -1.0f,  1.0f },  XMVectorSet(0.5, 1.0, 0.0, 0.0)},
+		{{ -1.0f,  1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0),XMVectorSet(0.0f,  0.0f, 0.0f,1.0f)},
+		{{ -1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 1.0, 0.0, 0.0),XMVectorSet(0.0f,0.0f,0.0f,1.0f)},
+		{{  1.0f,  1.0f,  1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0),XMVectorSet(0.0f,0.0f,0.0f,1.0f)},
+		{{  1.0f, -1.0f,  1.0f },  XMVectorSet(0.5, 1.0, 0.0, 0.0),XMVectorSet(0.0f, 0.0f, 0.0f ,1.0f)},
 
-		{{ -1.0f,  1.0f,  1.0f },  XMVectorSet(0.25, 0.0, 0.0, 0.0)},
-		{{ -1.0f,  1.0f,  -1.0f },  XMVectorSet(0.5, 0.0, 0.0, 0.0)},
-		{{ -1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0)},
-		{{ -1.0f, -1.0f,  -1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0)},
+		{{ -1.0f,  1.0f,  1.0f },  XMVectorSet(0.25, 0.0, 0.0, 0.0),XMVectorSet(-1.0f,  0.0f,  0.0f,0.0f)},
+		{{ -1.0f,  1.0f,  -1.0f },  XMVectorSet(0.5, 0.0, 0.0, 0.0),XMVectorSet(-1.0f,  0.0f,  0.0f,0.0f)},
+		{{ -1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0),XMVectorSet(-1.0f, 0.0f,  0.0f,0.0f)},
+		{{ -1.0f, -1.0f,  -1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0),XMVectorSet(-1.0f, 0.0f,  0.0f,0.0f)},
 
-		{{  1.0f,  1.0f,  1.0f },  XMVectorSet(0.0, 0.5, 0.0, 0.0)},
-		{{  1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0)},
-		{{  1.0f,  1.0f,  -1.0f },  XMVectorSet(0.0, 1.0, 0.0, 0.0)},
-		{{  1.0f, -1.0f,  -1.0f },  XMVectorSet(0.25, 1.0, 0.0, 0.0)},
+		{{  1.0f,  1.0f,  1.0f },  XMVectorSet(0.0, 0.5, 0.0, 0.0),XMVectorSet(1.0f,0.0f,0.0f,0.0f)},
+		{{  1.0f, -1.0f,  1.0f },  XMVectorSet(0.25, 0.5, 0.0, 0.0),XMVectorSet(1.0f,0.0f,0.0f,0.0f)},
+		{{  1.0f,  1.0f,  -1.0f },  XMVectorSet(0.0, 1.0, 0.0, 0.0),XMVectorSet(1.0f,0.0f,0.0f,0.0f)},
+		{{  1.0f, -1.0f,  -1.0f },  XMVectorSet(0.25, 1.0, 0.0, 0.0),XMVectorSet(1.0f,0.0f,0.0f,0.0f)},
 
-		{{ -1.0f,  1.0f,   1.0f },  XMVectorSet(0.5, 0.0, 0.0, 0.0)},
-		{{ -1.0f,  1.0f,  -1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0)},
-		{{  1.0f,  1.0f,   1.0f },  XMVectorSet(0.75, 0.0, 0.0, 0.0)},
-		{{  1.0f,  1.0f,  -1.0f },  XMVectorSet(0.75, 0.5, 0.0, 0.0)},
+		{{ -1.0f,  1.0f,   1.0f },  XMVectorSet(0.5, 0.0, 0.0, 0.0),XMVectorSet(0.0f,1.0f,0.0f,0.0f)},
+		{{ -1.0f,  1.0f,  -1.0f },  XMVectorSet(0.5, 0.5, 0.0, 0.0),XMVectorSet(0.0f,1.0f,0.0f,0.0f)},
+		{{  1.0f,  1.0f,   1.0f },  XMVectorSet(0.75, 0.0, 0.0, 0.0),XMVectorSet(0.0f,1.0f,0.0f,0.0f)},
+		{{  1.0f,  1.0f,  -1.0f },  XMVectorSet(0.75, 0.5, 0.0, 0.0),XMVectorSet(0.0f,1.0f,0.0f,0.0f)},
 
-		{{ -1.0f, -1.0f,  1.0f }, XMVectorSet(0.75, 0.0, 0.0, 0.0)},//20
-		{{ -1.0f, -1.0f,  -1.0f }, XMVectorSet(0.75, 0.5, 0.0, 0.0)},//21
-		{{  1.0f, -1.0f,  1.0f }, XMVectorSet(1.0, 0.0, 0.0, 0.0)},//22
-		{{  1.0f, -1.0f,  -1.0f }, XMVectorSet(1.0, 0.5, 0.0, 0.0)},//23
+		{{ -1.0f, -1.0f,  1.0f }, XMVectorSet(0.75, 0.0, 0.0, 0.0),XMVectorSet(0.0f,-1.0f,0.0f,0.0f)},//20
+		{{ -1.0f, -1.0f,  -1.0f }, XMVectorSet(0.75, 0.5, 0.0, 0.0),XMVectorSet(0.0f,-1.0f,0.0f,0.0f)},//21
+		{{  1.0f, -1.0f,  1.0f }, XMVectorSet(1.0, 0.0, 0.0, 0.0),XMVectorSet(0.0f,-1.0f,0.0f,0.0f)},//22
+		{{  1.0f, -1.0f,  -1.0f }, XMVectorSet(1.0, 0.5, 0.0, 0.0),XMVectorSet(0.0f,-1.0f,0.0f,0.0f)},//23
 
 
 	};
@@ -102,6 +102,7 @@ int index[] = {
 		12, 13, 14, 15, 14, 13,
 		16, 18, 17, 19, 17, 18,
 		20, 21, 22, 23, 22, 21,*/
+	//自分から見た時に指定した回り順に指定する　裏なら反時計回り
 };
 
 	//インデックス情報 四角形

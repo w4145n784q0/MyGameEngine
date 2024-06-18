@@ -108,7 +108,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             XMMATRIX rmat = XMMatrixRotationX(rot);
         
             static float factor = 0.0;
-            factor += 0.0001;
+            factor += 0.001;
             float scale = 1.5 + sin(factor);
             //XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
            // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
@@ -116,7 +116,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             
 
-            XMMATRIX tmat = XMMatrixTranslation(0.1*cos(factor), 0.1*sin(factor), 0.0f);
+            XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 1.5*sin(factor), 0.0f);
 
             //íPà çsóÒÅ@êîéöÇÃ1Ç∆ìØÇ∂
             XMMATRIX mat = XMMatrixIdentity();

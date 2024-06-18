@@ -5,11 +5,12 @@
 
 using namespace DirectX;
 
-//コンスタントバッファー
+//コンスタントバッファー:アプリ側からシェーダに毎フレーム渡したい情報
 
 struct CONSTANT_BUFFER
 {
 	XMMATRIX	matWVP;
+	XMMATRIX    matW;
 };
 
 //頂点情報
@@ -17,6 +18,7 @@ struct VERTEX
 {
 	XMVECTOR position;
 	XMVECTOR uv;
+	XMVECTOR normal;//法線ベクトル　ノーマル追加
 };
 
 class Quad
