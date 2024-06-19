@@ -106,7 +106,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //角度をラジアンにするなら XMConvertToRadians
             //ラジアンを角度にするならXMCOnvertToDegrees
             XMMATRIX rmat = XMMatrixRotationX(rot);
-        
+            rmat = rmat * XMMatrixRotationY(XMConvertToRadians(45.0));
+            
             static float factor = 0.0;
             factor += 0.001;
             float scale = 1.5 + sin(factor);
@@ -116,12 +117,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             
 
-            XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 1.5*sin(factor), 0.0f);
+           // XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 1.5*sin(factor), 0.0f);
 
             //単位行列　数字の1と同じ
             XMMATRIX mat = XMMatrixIdentity();
 
-            mat = rmat * tmat;
+            mat = rmat /** tmat*/;
             //qu->Draw(mat);
             di->Draw(mat);
 
