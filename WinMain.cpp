@@ -6,6 +6,10 @@
 #include"Camera.h"
 #include"Dice.h"
 #include "Sprite.h"
+#include"Transform.h"
+
+#pragma comment(lib,"d3d11.lib")
+
 namespace{
 //定数宣言
 const wchar_t* WIN_CLASS_NAME = L"SampleGame";//ウィンドウクラス名
@@ -83,6 +87,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     pSprite = new Sprite();
     hr = pSprite->Load(textureData);
 
+    /*Dice* d;
+    d = new Dice();
+    d->Initialize()*/;
+
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
@@ -105,8 +113,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //ゲームの処理
             Direct3D::BeginDraw();
            // XMMATRIX mat = XMMatrixIdentity();
-            XMMATRIX mat = XMMatrixScaling(1 / 2.0f, 1 / 2.0f, 1.0f);
-            pSprite->Draw(mat);
+            
+            //XMMATRIX mat = XMMatrixScaling(1 / 2.0f, 1 / 2.0f, 1.0f);
+            //pSprite->Draw(mat);
 
             //回転
             //static float rot = 0.0;
@@ -129,6 +138,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //mat = rmat /** tmat*/;
             ////qu->Draw(mat);
             //di->Draw(mat);
+
+            Transform trs;
+            static float rot = 0;
+            trs.scale_ = { 0.5,1,1 };
+            trs.rotate_.z = rot;
+            pSprite->Draw(trs);
 
             //描画処理
             

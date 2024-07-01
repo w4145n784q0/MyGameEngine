@@ -1,9 +1,9 @@
 #include "Transform.h"
 
 Transform::Transform()
-   :position_(XMVectorZero()),
-    rotate_(XMVectorZero()),
-    scale_(XMVectorSet(1,1,1,1)),
+   :position_({0,0,0}),
+    rotate_({ 0,0,0 }),
+    scale_({ 1,1,1 }),
     matTranslate_(XMMatrixIdentity()),
     matRotate_(XMMatrixIdentity()),
     matScale_(XMMatrixIdentity())
@@ -18,31 +18,20 @@ Transform::~Transform()
 {
 }
 
-void Transform::Calclation()
+void Transform::Calculation()
 {
-
-    float tx = XMVectorGetX(position_);
-    float ty = XMVectorGetY(position_);
-    float tz = XMVectorGetZ(position_);
-    matTranslate_ = XMMatrixTranslation(tx, ty, tz);
+//srt‚Ì‡”Ô‚Å‚©‚¯‚é‚Æƒ[ƒ‹ƒh•ÏŠ·
+    matTranslate_ = XMMatrixTranslation(position_.x, position_.y, position_.z);
 
     //R = z*x*y‚Ì‡”Ô‚Ås—ñ‚ð‚©‚¯‚é‚ÆDirectX‚Ì‰ñ“]‚É‚È‚é
     //digree->radians XMConvertToRadians
-    float tmp_rx = XMConvertToRadians(XMVectorGetX(rotate_));
-    float tmp_ry = XMConvertToRadians(XMVectorGetY(rotate_));
-    float tmp_rz = XMConvertToRadians(XMVectorGetZ(rotate_));
+    XMMATRIX rx = XMMatrixRotationX(XMConvertToRadians(rotate_.x));
+    XMMATRIX ry = XMMatrixRotationY(XMConvertToRadians(rotate_.y));
+    XMMATRIX rz = XMMatrixRotationZ(XMConvertToRadians(rotate_.z));
 
-    XMMATRIX rx = XMMatrixRotationX(tmp_rx);
-    XMMATRIX ry = XMMatrixRotationY(tmp_ry);
-    XMMATRIX rz = XMMatrixRotationZ(tmp_rz);
     matRotate_ = rz * rx * ry;
 
-    float sx = XMVectorGetX(scale_);
-    float sy = XMVectorGetY(scale_);
-    float sz = XMVectorGetZ(scale_);
-    matScale_ = XMMatrixScaling(sx, sy, sz);
-
-
+    matScale_ = XMMatrixScaling(scale_.x,scale_.y,scale_.z);
 }
 
 XMMATRIX Transform::GetWorldMatrix()

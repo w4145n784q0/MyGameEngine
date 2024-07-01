@@ -12,9 +12,9 @@ class Transform
 	//worldマトリクスはこの三つをかけたもの 掛け算の順番はSRT
 
 public:
-	XMVECTOR position_;	//位置
-	XMVECTOR rotate_;	//向き
-	XMVECTOR scale_;	//拡大率
+	XMFLOAT3 position_;	//位置 平行移動
+	XMFLOAT3 rotate_;	//回転　回転
+	XMFLOAT3 scale_;	//拡大縮小率　スケーリング
 
 	//コンストラクタ
 	Transform();
@@ -23,7 +23,7 @@ public:
 	~Transform();
 
 	//各行列の計算
-	void Calclation();
+	void Calculation();
 
 	//ワールド行列を取得
 	XMMATRIX GetWorldMatrix();

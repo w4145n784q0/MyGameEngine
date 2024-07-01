@@ -2,6 +2,14 @@
 
 //インクルード
 #include<d3d11.h>
+#include<assert.h>
+
+enum SHADER_TYPE {
+	SHADER_2D,
+	SHADER_3D,
+	SHADER_MAX
+};
+
 //リンカ
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -19,6 +27,10 @@ namespace Direct3D
 
 	//シェーダー準備
 	HRESULT InitShader();
+	HRESULT InitShader3D();//simple3d.hlslのための初期化
+	HRESULT InitShader2D();//
+
+	void SetShader(SHADER_TYPE type);
 
 	//描画開始
 	void BeginDraw();

@@ -206,13 +206,15 @@ void Dice::Draw()
 	Direct3D::pContext->DrawIndexed(36, 0, 0); //四角形
 }
 
-void Dice::Draw(XMMATRIX& worldMatrix)
+void Dice::Draw(Transform& transform)
 {	
-	D3D11_MAPPED_SUBRESOURCE pdata;
+	transform.Calculation();
+
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.matW = XMMatrixTranspose(worldMatrix);
-	
+	cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matW = XMMatrixTranspose(transform.GetWorldMatrix());
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開

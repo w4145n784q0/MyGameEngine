@@ -3,6 +3,7 @@
 #include <DirectXMath.h>
 #include"Texture.h"
 #include<vector>
+#include"Transform.h"
 
 using std::vector;
 using namespace DirectX;
@@ -37,7 +38,8 @@ public:
 	Sprite();
 	 ~Sprite();
 	 HRESULT Load(std::string filename);//初期化　コンストラクタでできないやつはこっちで初期化
-	 void Draw(XMMATRIX& worldMatrix);//描画
+	 //void Draw(XMMATRIX& worldMatrix);//描画
+	 void Draw(Transform& transform);
 	 void Release();//解放
 private:
 	//-----------------initializeから呼ばれる関数-----------------
@@ -50,7 +52,7 @@ private:
 	HRESULT LoadTexture(std::string filename);
 
 	//-----------------Drawから呼ばれる関数-----------------
-	void PassDataToCB(DirectX::XMMATRIX& worldMatrix);
+	void PassDataToCB(DirectX::XMMATRIX worldMatrix);
 	void SetBufferToPipeline();
 };
 

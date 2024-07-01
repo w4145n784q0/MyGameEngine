@@ -1,12 +1,12 @@
 float4 main( float4 pos : POSITION ) : SV_POSITION
 {
-	return pos;
+    return pos;
 	//───────────────────────────────────────
 // テクスチャ＆サンプラーデータのグローバル変数定義
 //───────────────────────────────────────
     Texture2D g_texture : register(t0); //テクスチャー
     SamplerState g_sampler : register(s0); //サンプラー
-
+}
 //───────────────────────────────────────
 // コンスタントバッファ
 // DirectX 側から送信されてくる、ポリゴン頂点以外の諸情報の定義
@@ -34,7 +34,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
     VS_OUT outData;
 
 	//ローカル座標に、ワールド・ビュー・プロジェクション行列をかけて
-    スクリーン座標に変換し、 ピクセルシェーダーへ
+    //スクリーン座標に変換し、 ピクセルシェーダーへ
 
     outData.pos = mul(pos, matWVP);
     outData.uv = uv;
@@ -47,7 +47,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
     normal = normalize(normal);
     outData.cos_alpha = clamp(dot(normal, light), 0, 1);
     
-    まとめて出力
+    //まとめて出力
 
     return outData;
 }
@@ -67,7 +67,7 @@ float4 PS(VS_OUT inData) : SV_Target
     //return Id * Kd * cos_alpha + Id * Kd * ambentSource;
     
     
-    retun g_tec
+    return g_tec
     //return g_texture.Sample(g_sampler, inData.uv);
     //return g_texture.Sample(g_sampler, my);
 }
