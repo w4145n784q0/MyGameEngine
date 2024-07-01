@@ -5,7 +5,7 @@
 #include"Quad.h"
 #include"Camera.h"
 #include"Dice.h"
-
+#include "Sprite.h"
 namespace{
 //定数宣言
 const wchar_t* WIN_CLASS_NAME = L"SampleGame";//ウィンドウクラス名
@@ -75,8 +75,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
    /* Quad* qu = new Quad;
     qu->Initialize();*/
 
-    Dice* di = new Dice();
-    di->Initialize();
+    /*Dice* di = new Dice();
+    di->Initialize();*/
+
+    std::string textureData("Asset\\Dice.png");
+    Sprite* pSprite;
+    pSprite = new Sprite();
+    hr = pSprite->Load(textureData);
 
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
@@ -99,40 +104,40 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             Camera::Update();
             //ゲームの処理
             Direct3D::BeginDraw();
+           // XMMATRIX mat = XMMatrixIdentity();
+            XMMATRIX mat = XMMatrixScaling(1 / 2.0f, 1 / 2.0f, 1.0f);
+            pSprite->Draw(mat);
 
             //回転
-            static float rot = 0.0;
-            rot += 0.001;
-            //角度をラジアンにするなら XMConvertToRadians
-            //ラジアンを角度にするならXMCOnvertToDegrees
-            XMMATRIX rmat = XMMatrixRotationX(rot);
-            rmat = rmat * XMMatrixRotationY(XMConvertToRadians(45.0));
-            
-            static float factor = 0.0;
-            factor += 0.001;
-            float scale = 1.5 + sin(factor);
-            //XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
+            //static float rot = 0.0;
+            //rot += 0.001;
+            ////角度をラジアンにするなら XMConvertToRadians
+            ////ラジアンを角度にするならXMCOnvertToDegrees
+            //XMMATRIX rmat = XMMatrixRotationX(rot);
+            //rmat = rmat * XMMatrixRotationY(XMConvertToRadians(45.0));
+            //
+            //static float factor = 0.0;
+            //factor += 0.001;
+            //float scale = 1.5 + sin(factor);
+            ////XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
            // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
           //  XMMATRIX mat = smat * rmat * tmat;
 
-            
-
            // XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 1.5*sin(factor), 0.0f);
-
             //単位行列　数字の1と同じ
-            XMMATRIX mat = XMMatrixIdentity();
-
-            mat = rmat /** tmat*/;
-            //qu->Draw(mat);
-            di->Draw(mat);
+         //   XMMATRIX mat = XMMatrixIdentity();
+            //mat = rmat /** tmat*/;
+            ////qu->Draw(mat);
+            //di->Draw(mat);
 
             //描画処理
-            Direct3D::EndDraw();
+            
         }
     }
 
   //  SAFE_DELETE(qu);
-    SAFE_DELETE(di);
+    //SAFE_DELETE(di);
+    SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;
 }

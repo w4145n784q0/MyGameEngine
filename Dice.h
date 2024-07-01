@@ -1,6 +1,7 @@
 #pragma once
 #include "Quad.h"
 #include <DirectXMath.h>
+#include"Transform.h"
 
 using namespace DirectX;
 
@@ -19,7 +20,7 @@ public:
     virtual ~Dice();
     virtual HRESULT Initialize();
     virtual void Draw();
-    void Draw(XMMATRIX& worldMatrix);
+    void Draw(Transform &transform);
     void Release();
 
 };

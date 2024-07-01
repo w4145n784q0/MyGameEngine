@@ -26,7 +26,7 @@ class Sprite
 	uint64_t vertecNum_;            //頂点数
 	vector<VERTEX> vertices_;        //頂点情報
 	uint64_t indexNum_;             //インデックス数
-	vector<int> indces_;            //インデックス情報
+	vector<int> indices_;            //インデックス情報
 
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer* pIndexBuffer_;    //インデックスバッファ
@@ -36,7 +36,7 @@ class Sprite
 public:
 	Sprite();
 	 ~Sprite();
-	 HRESULT Initialize();//初期化　コンストラクタでできないやつはこっちで初期化
+	 HRESULT Load(std::string filename);//初期化　コンストラクタでできないやつはこっちで初期化
 	 void Draw(XMMATRIX& worldMatrix);//描画
 	 void Release();//解放
 private:
@@ -47,7 +47,7 @@ private:
 	void InitIndexData();
 	HRESULT CreateIndexBuffer();
 	HRESULT CreateConstantBuffer();
-	HRESULT LoadTexture();
+	HRESULT LoadTexture(std::string filename);
 
 	//-----------------Drawから呼ばれる関数-----------------
 	void PassDataToCB(DirectX::XMMATRIX& worldMatrix);
