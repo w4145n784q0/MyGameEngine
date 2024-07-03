@@ -4,7 +4,7 @@
 #include<tchar.h>
 #include"Quad.h"
 #include"Camera.h"
-#include"Dice.h"
+//#include"Dice.h"
 //#include "Sprite.h"
 #include"Transform.h"
 
@@ -76,8 +76,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
-    /*Quad* qu = new Quad;
-    qu->Initialize();*/
+    Quad* qu = new Quad;
+    hr = qu->Initialize();
 
  /*   Dice* di = new Dice();
     di->Initialize();*/
@@ -87,9 +87,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     pSprite = new Sprite();
     hr = pSprite->Load(textureData);*/
 
-    Dice* d;
+   /* Dice* d;
     d = new Dice;
-    hr = d->Initialize();
+    hr = d->Initialize();*/
     
 
     if (FAILED(hr))
@@ -145,23 +145,26 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //di->Draw(mat);
 
             Transform trs;
-            static float rot = 0;
-            //trs.scale_ = { 0.5,1,1 };
+            
+            /*static float rot = 0;
+            trs.scale_ = { 0.5,1,1 };
             trs.rotate_.z = rot;
             trs.rotate_.x = rot * 0.5;
-            /*pSprite->Draw(trs);*/
-            rot = rot + 0.1;
+            rot = rot + 0.1;*/
 
             //d->Draw(trs);
-            d->Draw();
+            //d->Draw();
+            qu->Draw(trs);
+            /*pSprite->Draw(trs);*/
 
             //ï`âÊèàóù
+            Direct3D::EndDraw();
             
         }
     }
 
-  //  SAFE_DELETE(qu);
-    SAFE_DELETE(d);
+    SAFE_DELETE(qu);
+    //SAFE_DELETE(d);
    // SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;
