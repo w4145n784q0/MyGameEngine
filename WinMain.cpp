@@ -5,7 +5,7 @@
 #include"Quad.h"
 #include"Camera.h"
 #include"Dice.h"
-#include "Sprite.h"
+//#include "Sprite.h"
 #include"Transform.h"
 
 #pragma comment(lib,"d3d11.lib")
@@ -76,28 +76,33 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
-   /* Quad* qu = new Quad;
+    /*Quad* qu = new Quad;
     qu->Initialize();*/
 
-    /*Dice* di = new Dice();
+ /*   Dice* di = new Dice();
     di->Initialize();*/
 
-    std::string textureData("Asset\\Dice.png");
+    /*std::string textureData("Asset\\Dice.png");
     Sprite* pSprite;
     pSprite = new Sprite();
-    hr = pSprite->Load(textureData);
+    hr = pSprite->Load(textureData);*/
 
-    /*Dice* d;
-    d = new Dice();
-    d->Initialize()*/;
+    Dice* d;
+    d = new Dice;
+    hr = d->Initialize();
+    
+
+    if (FAILED(hr))
+    {
+        MessageBox(NULL, L"Quadの初期化失敗", NULL, MB_OK);
+        return 0;
+    }
 
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
     while (msg.message != WM_QUIT)
     {
-
-
         //メッセージあり
         if (PeekMessage(&msg, NULL, 0U, 0U, PM_REMOVE))
         {
@@ -141,9 +146,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             Transform trs;
             static float rot = 0;
-            trs.scale_ = { 0.5,1,1 };
+            //trs.scale_ = { 0.5,1,1 };
             trs.rotate_.z = rot;
-            pSprite->Draw(trs);
+            trs.rotate_.x = rot * 0.5;
+            /*pSprite->Draw(trs);*/
+            rot = rot + 0.1;
+
+            //d->Draw(trs);
+            d->Draw();
 
             //描画処理
             
@@ -151,8 +161,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     }
 
   //  SAFE_DELETE(qu);
-    //SAFE_DELETE(di);
-    SAFE_DELETE(pSprite);
+    SAFE_DELETE(d);
+   // SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;
 }

@@ -23,6 +23,7 @@ struct VERTEX
 
 class Quad
 {
+protected:
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer* pIndexBuffer_; //インデックスバッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
@@ -32,8 +33,8 @@ public:
 	Quad();
 	virtual ~Quad();
 	virtual HRESULT Initialize();
-	virtual void Draw();
+	void Draw();
 	virtual void Draw(XMMATRIX& worldMatrix);
-	virtual void Release();
+	void Release();
 };
 

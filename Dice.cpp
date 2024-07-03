@@ -1,7 +1,8 @@
 #include "Dice.h"
+#include"Quad.h"
 #include"Camera.h"
 
-Dice::Dice()
+Dice::Dice():Quad()
 {
 }
 
@@ -173,6 +174,8 @@ int index[] = {
 
 void Dice::Draw()
 {
+	Direct3D::SetShader(SHADER_TYPE::SHADER_3D);
+
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
 
@@ -208,6 +211,7 @@ void Dice::Draw()
 
 void Dice::Draw(Transform& transform)
 {	
+	Direct3D::SetShader(SHADER_TYPE::SHADER_3D);
 	transform.Calculation();
 
 	CONSTANT_BUFFER cb;

@@ -214,10 +214,14 @@ HRESULT Sprite::Load(std::string filename)
 
 void Sprite::Draw(Transform& transform)
 {
+	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 	//ワールドマトリクスを計算
 	transform.Calculation();
+	//コンスタントバッファに情報を流す
 	PassDataToCB(transform.GetWorldMatrix());
+	//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
 	SetBufferToPipeline();
+	//描画
 	Direct3D::pContext->DrawIndexed(indexNum_, 0, 0);
 }
 

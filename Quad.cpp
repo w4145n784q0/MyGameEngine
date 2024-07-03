@@ -162,18 +162,18 @@ void Quad::Draw()
 void Quad::Draw(XMMATRIX& worldMatrix)
 {
 	//コンスタントバッファに渡す情報
-	
 	//XMVECTOR position = { 0, 3, -10, 0 };	//カメラの位置
 	//XMVECTOR target = { 0, 0, 0, 0 };	//カメラの焦点
 	//XMMATRIX view = XMMatrixLookAtLH(position, target, XMVectorSet(0, 1, 0, 0));	//ビュー行列
 	//XMMATRIX proj = XMMatrixPerspectiveFovLH(XM_PIDIV4, 800.0f / 600.0f, 0.1f, 100.0f);//射影行列
 	////画角、アスペクト比、ニア平面、ファー平面
 
-	D3D11_MAPPED_SUBRESOURCE pdata;
+
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
 	cb.matW = XMMatrixTranspose(worldMatrix);
 	
+	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
 	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));	// データを値を送る
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);	//再開
