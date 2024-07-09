@@ -5,7 +5,7 @@
 #include"Quad.h"
 #include"Camera.h"
 #include"Dice.h"
-//#include "Sprite.h"
+#include "Sprite.h"
 #include"Transform.h"
 
 #pragma comment(lib,"d3d11.lib")
@@ -82,19 +82,25 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
-    Quad* qu = new Quad;
-    hr = qu->Initialize();
+    /*Quad* qu = new Quad;
+    hr = qu->Initialize();*/
 
     Dice* d = new Dice();
-    hr2 = d->Initialize();
+    hr = d->Initialize();
 
-    /*std::string textureData("Asset\\Dice.png");
-    Sprite* pSprite;
-    pSprite = new Sprite();
-    hr = pSprite->Load(textureData);*/
+    std::string textureData("Asset\\sample.png");
+
+    Sprite* pSprite = new Sprite();
+    hr2 = pSprite->Load(textureData);
     
 
     if (FAILED(hr))
+    {
+        MessageBox(NULL, L"Quad‚Ì‰Šú‰»¸”s", NULL, MB_OK);
+        return 0;
+    }
+
+    if (FAILED(hr2))
     {
         MessageBox(NULL, L"Quad‚Ì‰Šú‰»¸”s", NULL, MB_OK);
         return 0;
@@ -151,16 +157,16 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             
             static float rot = 0;
             trs.scale_ = { 0.5,0.5,0.5 };
-            //trs.rotate_.z = rot;
+           
             trs.rotate_.y = rot * 0.5;
             rot = rot + 0.1;
 
             t.scale_ = { 2.5,2.5,2.5 };
 
             d->Draw(trs);
-            qu->Draw(t);
+            /*qu->Draw(t);*/
             //qu->Draw(trs);
-           // pSprite->Draw(trs);
+            pSprite->Draw(t);
 
             //•`‰æˆ—
             Direct3D::EndDraw();

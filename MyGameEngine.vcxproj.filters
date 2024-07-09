@@ -48,6 +48,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>ソース ファイル\DirectXETC</Filter>
     </ClCompile>
+    <ClCompile Include="FBX.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>ソース ファイル\DirectXETC</Filter>
+    </ClInclude>
+    <ClInclude Include="FBX.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

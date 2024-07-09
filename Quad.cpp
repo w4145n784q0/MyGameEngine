@@ -117,7 +117,7 @@ void Quad::Draw(Transform& transform)
 	transform.Calculation();//トランスフォームを計算
 
 	//コンスタントバッファに情報渡す
-	PassDataToCB(transform.GetWorldMatrix());
+	PassDataToCB(transform);
 
 	//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
 	SetBufferToPipeline();
@@ -230,7 +230,7 @@ HRESULT Quad::LoadTexture()
 {
 	pTexture_ = new Texture;
 	HRESULT hr;
-	if (FAILED(hr = pTexture_->Load("Asset\\sample.png")))
+	if (FAILED(hr = pTexture_->Load("Asset\\dice.png")))
 	{
 		MessageBox(NULL, L"テクスチャの作成に失敗", L"error", MB_OK);
 		return hr;
@@ -238,11 +238,11 @@ HRESULT Quad::LoadTexture()
 	return S_OK;
 }
 
-void Quad::PassDataToCB(XMMATRIX worldMatrix)
+void Quad::PassDataToCB(Transform& transform)
 {
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(worldMatrix * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
-	cb.matW = XMMatrixTranspose(worldMatrix);
+	cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matW = XMMatrixTranspose(transform.GetNormalMatrix());
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める

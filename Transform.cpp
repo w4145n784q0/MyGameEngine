@@ -36,7 +36,7 @@ void Transform::Calculation()
 
 XMMATRIX Transform::GetWorldMatrix()
 {
-    return matScale_ * matRotate_ * matTranslate_;
+    return matScale_ * matRotate_ * matTranslate_;//srt‚ğ‹‚ß‚é
 }
 
 XMMATRIX Transform::GetNormalMatrix()

@@ -53,7 +53,7 @@ private:
 	HRESULT LoadTexture();
 
 	//---------------drawŠÖ”‚©‚çŒÄ‚Î‚ê‚éŠÖ”---------------
-	 void PassDataToCB(XMMATRIX worldMatrix);
+	 void PassDataToCB(Transform& transform);
 	 void SetBufferToPipeline();
 };
 
