@@ -6,12 +6,22 @@ class Dice :
     public Quad
 {
 public:
-    Dice();
+    Dice() :Quad() {};
     virtual ~Dice();
-    virtual HRESULT Initialize();
-    virtual void Draw();
+    void InitVertexData() override;
+    void InitIndexData() override;
+    /*//virtual HRESULT Initialize();
+    //virtual void Draw();
     void Draw(Transform &transform);
-    void Release();
+    void Release();*/
 
+
+    /*HRESULT CreateVertexBuffer();
+    HRESULT CreateIndexBuffer();
+    HRESULT CreateConstantBuffer();
+    HRESULT LoadTexture();
+    //---------------drawä÷êîÇ©ÇÁåƒÇŒÇÍÇÈä÷êî---------------
+    void PassDataToCB(XMMATRIX worldMatrix);
+    void SetBufferToPipeline();*/
 };
 

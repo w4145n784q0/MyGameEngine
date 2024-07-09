@@ -10,20 +10,21 @@ using namespace DirectX;
 
 //コンスタントバッファー:アプリ側からシェーダに毎フレーム渡したい情報
 
-struct CONSTANT_BUFFER
-{
-	XMMATRIX    matW;
-};
 
-//頂点情報
-struct VERTEX
-{
-	XMVECTOR position;
-	XMVECTOR uv;
-};
 
 class Sprite
 {
+	struct CONSTANT_BUFFER
+	{
+		XMMATRIX    matW;
+	};
+
+	//頂点情報
+	struct VERTEX
+	{
+		XMVECTOR position;
+		XMVECTOR uv;
+	};
 	uint64_t vertecNum_;            //頂点数
 	vector<VERTEX> vertices_;        //頂点情報
 	uint64_t indexNum_;             //インデックス数

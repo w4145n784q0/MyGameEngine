@@ -114,10 +114,12 @@ void Quad::Draw(Transform& transform)
 	////Direct3D::pContext->DrawIndexed(18, 0, 0);//四角錐
 
 	Direct3D::SetShader(SHADER_3D);
-	transform.Calculation();
+	transform.Calculation();//トランスフォームを計算
 
+	//コンスタントバッファに情報渡す
 	PassDataToCB(transform.GetWorldMatrix());
 
+	//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
 	SetBufferToPipeline();
 
 	Direct3D::pContext->DrawIndexed(index_.size(), 0, 0);
@@ -228,7 +230,7 @@ HRESULT Quad::LoadTexture()
 {
 	pTexture_ = new Texture;
 	HRESULT hr;
-	if (FAILED(hr = pTexture_->Load("Asset\\dice.png")))
+	if (FAILED(hr = pTexture_->Load("Asset\\sample.png")))
 	{
 		MessageBox(NULL, L"テクスチャの作成に失敗", L"error", MB_OK);
 		return hr;

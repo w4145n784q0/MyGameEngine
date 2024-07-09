@@ -269,23 +269,7 @@ HRESULT Sprite::CreateVertexBuffer()
 	}
 	return S_OK;
 
-	//// インデックスバッファを生成する
-	//D3D11_BUFFER_DESC   bd;
-	//bd.Usage = D3D11_USAGE_DEFAULT;
-	//bd.ByteWidth = sizeof(index);
-	//bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	//bd.CPUAccessFlags = 0;
-	//bd.MiscFlags = 0;
-	//D3D11_SUBRESOURCE_DATA InitData;
-	//InitData.pSysMem = index;
-	//InitData.SysMemPitch = 0;
-	//InitData.SysMemSlicePitch = 0;
-	//hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
-	//if (FAILED(hr))
-	//{
-	//	MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
-	//	return hr;
-	//}
+
 }
 
 void Sprite::InitIndexData()
@@ -299,7 +283,26 @@ void Sprite::InitIndexData()
 
 HRESULT Sprite::CreateIndexBuffer()
 {
-	return E_NOTIMPL;
+	HRESULT hr;
+
+	// インデックスバッファを生成する
+	D3D11_BUFFER_DESC   bd;
+	bd.Usage = D3D11_USAGE_DEFAULT;
+	bd.ByteWidth = sizeof(int) * indexNum_;
+	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	bd.CPUAccessFlags = 0;
+	bd.MiscFlags = 0;
+	D3D11_SUBRESOURCE_DATA InitData;
+	InitData.pSysMem = indices_.data();
+	InitData.SysMemPitch = 0;
+	InitData.SysMemSlicePitch = 0;
+	hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+	if (FAILED(hr))
+	{
+		MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
+		return hr;
+	}
+	return S_OK;
 }
 
 HRESULT Sprite::CreateConstantBuffer()

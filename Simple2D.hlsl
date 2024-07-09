@@ -1,6 +1,3 @@
-//float4 main( float4 pos : POSITION ) : SV_POSITION
-//{
-//    return pos;
 //	//───────────────────────────────────────
 //// テクスチャ＆サンプラーデータのグローバル変数定義
 ////───────────────────────────────────────
@@ -41,8 +38,6 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
     
     //float4 light = float4(1, 0.8, 0.3, 0); //光源ベクトルの逆ベクトル
     //light = normalize(light); //単位ベクトル化
-    
-    
     //normal = mul(normal, matW);
     //normal = normalize(normal);
     //outData.cos_alpha = clamp(dot(normal, light), 0, 1);

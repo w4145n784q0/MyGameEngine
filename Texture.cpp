@@ -10,6 +10,11 @@ Texture::Texture()
 {
 }
 
+Texture::~Texture()
+{
+	Release();
+}
+
 HRESULT Texture::Load(std::string fileName)
 {
 	
@@ -22,17 +27,14 @@ HRESULT Texture::Load(std::string fileName)
 	//実際に読んでゆくぅ　　　　　 
 
 	std::wstring wstr(fileName.begin(), fileName.end());//string wchar *tの変換　LPCWSTR == const wchar_t*
-	hr = LoadFromWICFile(wstr.c_str(), WIC_FLAGS::WIC_FLAGS_NONE,
-
-		&metadata, image);
-
-
+	hr = LoadFromWICFile(wstr.c_str(), WIC_FLAGS::WIC_FLAGS_NONE,&metadata, image);
 
 	if (FAILED(hr))
 	{
 		return S_FALSE;
 	}
 
+	//サンプラーの設定
 	D3D11_SAMPLER_DESC  SamDesc;
 	ZeroMemory(&SamDesc, sizeof(D3D11_SAMPLER_DESC));
 	SamDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;

@@ -4,7 +4,7 @@
 #include<tchar.h>
 #include"Quad.h"
 #include"Camera.h"
-//#include"Dice.h"
+#include"Dice.h"
 //#include "Sprite.h"
 #include"Transform.h"
 
@@ -74,22 +74,24 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         return 0;
     }
 
+    HRESULT hr2 = Direct3D::Initialize(winW, winH, hWnd);
+    if (FAILED(hr))
+    {
+        return 0;
+    }
+
     Camera::Initialize();
 
     Quad* qu = new Quad;
     hr = qu->Initialize();
 
- /*   Dice* di = new Dice();
-    di->Initialize();*/
+    Dice* d = new Dice();
+    hr2 = d->Initialize();
 
     /*std::string textureData("Asset\\Dice.png");
     Sprite* pSprite;
     pSprite = new Sprite();
     hr = pSprite->Load(textureData);*/
-
-   /* Dice* d;
-    d = new Dice;
-    hr = d->Initialize();*/
     
 
     if (FAILED(hr))
@@ -145,17 +147,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //di->Draw(mat);
 
             Transform trs;
+            Transform t;
             
-            /*static float rot = 0;
-            trs.scale_ = { 0.5,1,1 };
-            trs.rotate_.z = rot;
-            trs.rotate_.x = rot * 0.5;
-            rot = rot + 0.1;*/
+            static float rot = 0;
+            trs.scale_ = { 0.5,0.5,0.5 };
+            //trs.rotate_.z = rot;
+            trs.rotate_.y = rot * 0.5;
+            rot = rot + 0.1;
 
-            //d->Draw(trs);
-            //d->Draw();
-            qu->Draw(trs);
-            /*pSprite->Draw(trs);*/
+            t.scale_ = { 2.5,2.5,2.5 };
+
+            d->Draw(trs);
+            qu->Draw(t);
+            //qu->Draw(trs);
+           // pSprite->Draw(trs);
 
             //ï`âÊèàóù
             Direct3D::EndDraw();
@@ -163,9 +168,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         }
     }
 
-    SAFE_DELETE(qu);
-    //SAFE_DELETE(d);
-   // SAFE_DELETE(pSprite);
+   // SAFE_DELETE(qu);
+    SAFE_DELETE(d);
+    //SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;
 }
