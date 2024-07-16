@@ -27,8 +27,8 @@ struct VERTEX
 class Quad
 {
 protected:
-	int vertexNum_;
-	std::vector<VERTEX> vertices_;
+	int vertexNum_;//頂点数
+	std::vector<VERTEX> vertices_;//頂点数vector
 	int indexNum_;//インデックス数
 	std::vector<int> index_;//インデックス情報
 

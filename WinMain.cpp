@@ -2,11 +2,15 @@
 #include <Windows.h>
 #include"Direct3D.h"
 #include<tchar.h>
-#include"Quad.h"
 #include"Camera.h"
-#include"Dice.h"
-#include "Sprite.h"
+
+//#include"Quad.h"
+//#include"Dice.h"
+//#include "Sprite.h"
+
 #include"Transform.h"
+#include"FBX.h"
+#include"assert.h"
 
 #pragma comment(lib,"d3d11.lib")
 
@@ -82,16 +86,18 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
+    FBX fbx;
+    fbx.Load("Asset\\oden2.fbx");
+  
     /*Quad* qu = new Quad;
     hr = qu->Initialize();*/
 
-    Dice* d = new Dice();
-    hr = d->Initialize();
+   /* Dice* d = new Dice();
+    hr = d->Initialize();*/
 
-    std::string textureData("Asset\\sample.png");
-
+   /* std::string textureData("Asset\\sample.png");
     Sprite* pSprite = new Sprite();
-    hr2 = pSprite->Load(textureData);
+    hr2 = pSprite->Load(textureData);*/
     
 
     if (FAILED(hr))
@@ -154,19 +160,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             Transform trs;
             Transform t;
-            
+            //t.scale_ = { 1,1,1 };
+
             static float rot = 0;
             trs.scale_ = { 0.5,0.5,0.5 };
            
             trs.rotate_.y = rot * 0.5;
             rot = rot + 0.1;
 
-            t.scale_ = { 2.5,2.5,2.5 };
-
-            d->Draw(trs);
+           // t.scale_ = { 2.5,2.5,2.5 };
+            fbx.Draw(t);
+           // d->Draw(trs);
             /*qu->Draw(t);*/
             //qu->Draw(trs);
-            pSprite->Draw(t);
+            //pSprite->Draw(t);
 
             //ï`âÊèàóù
             Direct3D::EndDraw();
@@ -175,7 +182,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     }
 
    // SAFE_DELETE(qu);
-    SAFE_DELETE(d);
+    //SAFE_DELETE(d);
     //SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;

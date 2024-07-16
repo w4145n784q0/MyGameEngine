@@ -38,11 +38,15 @@ private:
 
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数
+	void InitVertex(fbxsdk::FbxMesh* mesh);//頂点バッファ準備
+	void InitIndex(fbxsdk::FbxMesh* mesh);//インデックスバッファ準備
+	void InitConstantBuffer();//コンスタントバッファ準備
 public:
 	FBX();
 	HRESULT Load(std::string fileName);
 	void    Draw(Transform& transform);
 	void    Release();
-
+	void PassDataToCB(Transform& transform);
+	void SetBufferToPipeline();
 };
 
