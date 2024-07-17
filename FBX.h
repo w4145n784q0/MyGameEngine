@@ -5,7 +5,6 @@
 #include<vector>
 #include"Transform.h"
 #include<filesystem>
-#include"TextServ.h";
 
 #include <d3d11.h>
 #include <fbxsdk.h>
@@ -27,7 +26,7 @@ private:
 		Texture* pTexture;
 	};
 
-	struct VERTEX {
+	struct CONSTANT_BUFFER {
 		XMMATRIX	matWVP;//ワールドビュープロジェクション
 		XMMATRIX    matNormal;//法線ベクトルの変換用
 	};
@@ -36,7 +35,7 @@ private:
 	struct VERTEX
 	{
 		XMVECTOR position;
-		//XMVECTOR uv;
+		XMVECTOR uv;
 		//XMVECTOR normal;//法線ベクトル　ノーマル追加
 	};
 
@@ -44,7 +43,7 @@ private:
 	ID3D11Buffer* pIndexBuffer_; //インデックスバッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
 	std::vector<MATERIAL>pMaterialBuffer;
-	MATERIAL* pMaterialList_;
+	std::vector <MATERIAL> pMaterialList_;
 
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数
@@ -52,7 +51,7 @@ private:
 	void InitVertex(fbxsdk::FbxMesh* mesh);//頂点バッファ準備
 	void InitIndex(fbxsdk::FbxMesh* mesh);//インデックスバッファ準備
 	void InitConstantBuffer();//コンスタントバッファ準備
-	void InitMaterial();
+	void InitMaterial(fbxsdk::FbxNode* pNode);
 	
 public:
 	FBX();
