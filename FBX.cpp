@@ -119,40 +119,49 @@ void FBX::InitVertex(fbxsdk::FbxMesh* mesh)
 
 void FBX::InitIndex(fbxsdk::FbxMesh* mesh)
 {
+	pIndexBuffer_ = new ID3D11Buffer * [materialCount_];
 	//int * index  =new int [polygonCount_ * 3]
-	std::vector<int> index (polygonCount_ * 3);
-	int count = 0;
+	std::vector<int> index(polygonCount_ * 3);
+	
 
-	//全ポリゴン
-	for (DWORD poly = 0; poly < polygonCount_; poly++)
+	for (int i = 0; i < materialCount_; i++) 
 	{
-		//3頂点分
-		for (DWORD vertex = 0; vertex < 3; vertex++)
+		int count = 0;
+		//全ポリゴン
+		for (DWORD poly = 0; poly < polygonCount_; poly++)
 		{
-			index[count] = mesh->GetPolygonVertex(poly, vertex);
-			count++;
+			FbxLayerElementMaterial* mtl = mesh->GetLayer(0)->GetMaterials();
+			int mtlId = mtl->GetIndexArray().GetAt(poly);
+			if (mtlId == i) {
+				//3頂点分
+				for (DWORD vertex = 0; vertex < 3; vertex++)
+				{
+					index[count] = mesh->GetPolygonVertex(poly, vertex);
+					count++;
+				}
+			}
 		}
+			// インデックスバッファを生成する
+			D3D11_BUFFER_DESC  bd;
+			bd.Usage = D3D11_USAGE_DEFAULT;
+			bd.ByteWidth = sizeof(int) * polygonCount_;
+			bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
+			bd.CPUAccessFlags = 0;
+			bd.MiscFlags = 0;
+
+			D3D11_SUBRESOURCE_DATA InitData;
+			InitData.pSysMem = index.data();
+			InitData.SysMemPitch = 0;
+			InitData.SysMemSlicePitch = 0;
+
+			/*HRESULT hr;
+			hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+			if (FAILED(hr))
+			{
+				MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
+			}*/
+		
 	}
-
-	// インデックスバッファを生成する
-	D3D11_BUFFER_DESC  bd;
-	bd.Usage = D3D11_USAGE_DEFAULT;
-	bd.ByteWidth = sizeof(int) * polygonCount_;
-	bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	bd.CPUAccessFlags = 0;
-	bd.MiscFlags = 0;
-
-	D3D11_SUBRESOURCE_DATA InitData;
-	InitData.pSysMem = index.data();
-	InitData.SysMemPitch = 0;
-	InitData.SysMemSlicePitch = 0;
-	Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
-
-	/*HRESULT hr;
-	if (FAILED(hr))
-	{
-		MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
-	}*/
 
 }
 
