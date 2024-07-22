@@ -42,8 +42,9 @@ private:
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
 	ID3D11Buffer** pIndexBuffer_; //インデックスバッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
-	std::vector<MATERIAL>pMaterialBuffer;
+	/*std::vector<MATERIAL>pMaterialBuffer;*/
 	std::vector <MATERIAL> pMaterialList_;
+	std::vector<int>indexcount_;
 
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数

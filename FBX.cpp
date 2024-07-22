@@ -121,6 +121,9 @@ void FBX::InitIndex(fbxsdk::FbxMesh* mesh)
 {
 	pIndexBuffer_ = new ID3D11Buffer * [materialCount_];
 	//int * index  =new int [polygonCount_ * 3]
+	indexcount_ = std::vector<int>
+
+
 	std::vector<int> index(polygonCount_ * 3);
 	
 
@@ -154,12 +157,12 @@ void FBX::InitIndex(fbxsdk::FbxMesh* mesh)
 			InitData.SysMemPitch = 0;
 			InitData.SysMemSlicePitch = 0;
 
-			/*HRESULT hr;
-			hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
+			HRESULT hr;
+			hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_[i]);
 			if (FAILED(hr))
 			{
 				MessageBox(NULL, L"インデックスバッファの作成に失敗", NULL, MB_OK);
-			}*/
+			}
 		
 	}
 
@@ -201,7 +204,7 @@ void FBX::Draw(Transform& transform)
 	//頂点バッファ、インデックスバッファ、コンスタントバッファをパイプラインにセット
 	SetBufferToPipeline();
 
-	Direct3D::pContext->DrawIndexed(polygonCount_, 0, 0);
+	Direct3D::pContext->DrawIndexed(polygonCount_*3, 0, 0);
 
 
 	////Quadをアレンジ
@@ -255,20 +258,30 @@ void FBX::SetBufferToPipeline()
 	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
 	// インデックスバッファーをセット
-	stride = sizeof(int);
-	offset = 0;
-	Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
+	for (int i = 0; i < materialCount_; i++)
+	{
+		stride = sizeof(int);
+		offset = 0;
+		Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_[i], DXGI_FORMAT_R32_UINT, 0);
 
-	//コンスタントバッファ
-	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
-	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
+		//コンスタントバッファ
 
-	//サンプラーとシェーダーリソースビューをシェーダにセット
-	/*ID3D11SamplerState* pSampler = pTexture_->GetSampler();
-	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);*/
+		Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用	
+		Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
 
-	/*ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
-	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);*/
+		if (!(pMaterialList_[i].pTexture == nullptr))
+		{
+			//サンプラーとシェーダーリソースビューをシェーダにセット
+			ID3D11SamplerState* pSampler = pMaterialList_[i].pTexture->GetSampler();
+			Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+
+			ID3D11ShaderResourceView* pSRV = pMaterialList_[i].pTexture->GetSRV();
+			Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+		}
+	}
+
+
+	
 
 }
 
@@ -310,7 +323,7 @@ void FBX:: InitMaterial(fbxsdk::FbxNode* pNode)
 		//テクスチャ無し
 		else
 		{
-
+			pMaterialList_[i].pTexture = nullptr;
 		}
 	}
 }
