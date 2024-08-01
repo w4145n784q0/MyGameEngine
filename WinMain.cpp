@@ -87,7 +87,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     Camera::Initialize();
 
     FBX fbx;
-    fbx.Load("Asset\\oden2.fbx");
+    fbx.Load("Assets\\oden.fbx");
   
     /*Quad* qu = new Quad;
     hr = qu->Initialize();*/

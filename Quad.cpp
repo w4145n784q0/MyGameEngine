@@ -230,7 +230,7 @@ HRESULT Quad::LoadTexture()
 {
 	pTexture_ = new Texture;
 	HRESULT hr;
-	if (FAILED(hr = pTexture_->Load("Asset\\dice.png")))
+	if (FAILED(hr = pTexture_->Load("Assets\\dice.png")))
 	{
 		MessageBox(NULL, L"テクスチャの作成に失敗", L"error", MB_OK);
 		return hr;

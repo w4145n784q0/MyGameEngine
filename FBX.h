@@ -44,7 +44,7 @@ private:
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
 	/*std::vector<MATERIAL>pMaterialBuffer;*/
 	std::vector <MATERIAL> pMaterialList_;
-	std::vector<int>indexcount_;
+	std::vector<int>indexCount_;
 
 	int vertexCount_;	//頂点数
 	int polygonCount_;	//ポリゴン数
@@ -59,7 +59,6 @@ public:
 	HRESULT Load(std::string fileName);
 	void    Draw(Transform& transform);
 	void    Release();
-	void PassDataToCB(Transform& transform);
-	void SetBufferToPipeline();
+	
 };
 
