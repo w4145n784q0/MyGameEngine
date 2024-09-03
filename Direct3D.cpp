@@ -3,6 +3,7 @@
 #include<assert.h>
 #include<DirectXMath.h>
 
+
 const int WINDOW_WIDTH = 800;//ウィンドウ幅
 const int WINDOW_HEIGHT = 600;//ウィンドウの高さ
 //変数
@@ -18,6 +19,11 @@ namespace Direct3D
     ID3D11InputLayout* pVertexLayout = nullptr;	//頂点インプットレイアウト
     ID3D11RasterizerState* pRasterizerState = nullptr;	//ラスタライザー
   
+    ID3D11Texture2D* pDepthStencil; //深度ステンシル
+    ID3D11DepthStencilView* pDepthStencilView;//深度ステンシルビュー
+
+    int scrWidth = 0;
+    int scrHeight = 0;
 
     struct SHADER_BUNDLE
     {
@@ -100,13 +106,33 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
     vp.TopLeftX = 0;	//左
     vp.TopLeftY = 0;	//上
 
+    //深度ステンシルビューの作成
+    D3D11_TEXTURE2D_DESC descDepth;
+    descDepth.Width = winW;
+    descDepth.Height = winH;
+    descDepth.MipLevels = 1;
+    descDepth.ArraySize = 1;
+    descDepth.Format = DXGI_FORMAT_D32_FLOAT;
+    descDepth.SampleDesc.Count = 1;
+    descDepth.SampleDesc.Quality = 0;
+    descDepth.Usage = D3D11_USAGE_DEFAULT;
+    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+    descDepth.CPUAccessFlags = 0;
+    descDepth.MiscFlags = 0;
+    pDevice->CreateTexture2D(&descDepth, NULL, &pDepthStencil);
+    pDevice->CreateDepthStencilView(pDepthStencil, NULL, &pDepthStencilView);
+
     //データを画面に描画するための一通りの設定（パイプライン）
     pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);  // データの入力種類を指定
-    pContext->OMSetRenderTargets(1, &pRenderTargetView, nullptr);            // 描画先を設定
+    pContext->OMSetRenderTargets(1, &pRenderTargetView, pDepthStencilView);            // 描画先を設定
     pContext->RSSetViewports(1, &vp);
 
     //シェーダー準備
     hr =  InitShader();
+
+    scrWidth = winW;
+    scrHeight = winH;
+
     if (FAILED(hr)) {
         
         MessageBox(NULL, L"シェーダーの作成に失敗", NULL, MB_OK);
@@ -179,7 +205,7 @@ HRESULT Direct3D::InitShader3D()
     //ラスタライザ作成
     D3D11_RASTERIZER_DESC rdc = {};
     //rdc.CullMode = D3D11_CULL_BACK; //多角形の裏側は描画しない(カリング)
-    rdc.CullMode = D3D11_CULL_FRONT;//cullmodeの切り替え
+    rdc.CullMode = D3D11_CULL_BACK;//cullmodeの切り替え
     //rdc.CullMode = D3D11_CULL_NONE;
     rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
     //rdc.FillMode = D3D11_FILL_WIREFRAME;//ワイヤフレームを出す
@@ -246,8 +272,8 @@ HRESULT Direct3D::InitShader2D()
 
     //ラスタライザ作成
     D3D11_RASTERIZER_DESC rdc = {};
-    // rdc.CullMode = D3D11_CULL_BACK; //多角形の裏側は描画しない(カリング)
-    rdc.CullMode = D3D11_CULL_FRONT;//cullmodeの切り替え
+    //rdc.CullMode = D3D11_CULL_BACK; //多角形の裏側は描画しない(カリング)
+    rdc.CullMode = D3D11_CULL_NONE;//cullmodeの切り替え
     rdc.FillMode = D3D11_FILL_SOLID;//多角形の内部を塗りつぶす
     //rdc.FillMode = D3D11_FILL_WIREFRAME;//ワイヤフレームを出す
     rdc.FrontCounterClockwise = FALSE;//反時計回りを表にするかどうか（がfalseなので時計回りが表）
@@ -281,6 +307,9 @@ void Direct3D::BeginDraw()
 
     //画面をクリア
     pContext->ClearRenderTargetView(pRenderTargetView, clearColor);
+
+    //深度バッファクリア
+    pContext->ClearDepthStencilView(pDepthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 }
 
 void Direct3D::EndDraw()

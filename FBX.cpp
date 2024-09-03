@@ -82,6 +82,11 @@ void FBX::InitVertex(fbxsdk::FbxMesh* mesh)
 			int uvIndex = mesh->GetTextureUVIndex(poly, vertex, FbxLayerElement::eTextureDiffuse);
 			FbxVector2  uv = pUV->GetDirectArray().GetAt(uvIndex);
 			vertices[index].uv = XMVectorSet((float)(1.0 - uv.mData[0]), (float)(1.0f - uv.mData[1]), 0.0f, 0.0f);
+
+			//頂点の法線
+			FbxVector4 Normal;
+			mesh->GetPolygonVertexNormal(poly, vertex, Normal);	//ｉ番目のポリゴンの、ｊ番目の頂点の法線をゲット
+			vertices[index].normal = XMVectorSet((float)Normal[0], (float)Normal[1], (float)Normal[2], 0.0f);
 		}
 	}
 	// 頂点バッファ作成
@@ -207,11 +212,12 @@ void FBX::InitMaterial(fbxsdk::FbxNode* pNode)
 		//テクスチャ無し
 		else
 		{
-			//this part are witten after
 			pMaterialList_[i].pTexture = nullptr;
+			//マテリアルの色　ランバート（拡散反射）とアンビエントのみのシェーディングモデル
+			FbxSurfaceLambert * pMaterial = (FbxSurfaceLambert*)pNode->GetMaterial(i);
+			FbxDouble3  diffuse = pMaterial->Diffuse;
+			pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
 		}
-
-
 	}
 }
 
@@ -226,6 +232,21 @@ void FBX::Draw(Transform& transform)
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
 	cb.matNormal = XMMatrixTranspose(transform.GetNormalMatrix());
+	
+	for (int i = 0; i < materialCount_; i++)
+	{
+		cb.diffuseColor = pMaterialList_[i].diffuse;
+		if (pMaterialList_[i].pTexture == nullptr)
+		{
+			cb.isTextured = false;
+		}
+		else
+		{
+			cb.isTextured = true;
+		}
+
+	}
+
 	// インデックスバッファーをセット
 	for (int i = 0; i < materialCount_; i++) {
 		D3D11_MAPPED_SUBRESOURCE pdata;

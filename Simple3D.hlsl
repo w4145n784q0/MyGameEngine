@@ -13,6 +13,8 @@ cbuffer global
     //変換行列、視点、光源
     float4x4 matWVP; // ワールド・ビュー・プロジェクションの合成行列
     float4x4 matW;//法線をワールド座標に対応させる行列＝回転*スケールの逆行列（平行移動は無視）
+    float4 diffuseColor;//拡散反射係数
+    int isTextured;//テクスチャが貼られているかどうか
 };
 
 //───────────────────────────────────────
@@ -62,12 +64,18 @@ float4 PS(VS_OUT inData) : SV_Target
 {
    // return float4(65/255, 105/255, 225/255, 1);
     //float4 my = { 0.125, 0.25, 0, 0 };
-    float4 Id = { 1.0, 1.0, 1.0, 0.0 };
-    float4 Kd = g_texture.Sample(g_sampler, inData.uv);
-    float cos_alpha = inData.cos_alpha;
+    float4 Id = { 1.0, 1.0, 1.0, 0.0 };//光の強さ　通常全色1.0
+    float4 Kd = g_texture.Sample(g_sampler, inData.uv);//テクスチャの色をサンプリング
+    float cos_alpha = inData.cos_alpha;//拡散反射係数の計算（光源ベクトルと面の法線のcos）
     float4 ambentSource = { 0.2, 0.2, 0.2, 1.0 }; //環境光の強さ
-   
-    return Id * Kd * cos_alpha + Id * Kd * ambentSource;
+   if(isTextured == false)
+    {
+        return Id * diffuseColor * cos_alpha + Id * diffuseColor * ambentSource;
+    }
+    else
+    {
+        return Id * Kd * cos_alpha + Id * Kd * ambentSource;
+    }
     
     //return g_texture.Sample(g_sampler, inData.uv);
     //return g_texture.Sample(g_sampler, my);

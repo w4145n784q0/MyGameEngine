@@ -87,7 +87,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     Camera::Initialize();
 
     FBX fbx;
-    fbx.Load("Assets\\oden.fbx");
+    //fbx.Load("Assets\\oden.fbx");
+    fbx.Load("Assets\\GreenBox.fbx");
   
     /*Quad* qu = new Quad;
     hr = qu->Initialize();*/
@@ -170,7 +171,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             //t.position_.x += 0.5;
           //  t.scale_ = { 0.2,0.2,0.2 };
-            fbx.Draw(t);
+            fbx.Draw(trs);
            // d->Draw(trs);
             /*qu->Draw(t);*/
             //qu->Draw(trs);
