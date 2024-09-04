@@ -1,16 +1,7 @@
 //インクルード
 #include <Windows.h>
-#include"Direct3D.h"
-#include<tchar.h>
-#include"Camera.h"
-
-//#include"Quad.h"
-//#include"Dice.h"
-//#include "Sprite.h"
-
-#include"Transform.h"
-#include"FBX.h"
-#include"assert.h"
+#include"Engine/Direct3D.h"
+#include"Engine/Camera.h"
 
 #pragma comment(lib,"d3d11.lib")
 
@@ -78,40 +69,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         return 0;
     }
 
-    HRESULT hr2 = Direct3D::Initialize(winW, winH, hWnd);
-    if (FAILED(hr))
-    {
-        return 0;
-    }
-
     Camera::Initialize();
-
-    FBX fbx;
-    //fbx.Load("Assets\\oden.fbx");
-    fbx.Load("Assets\\GreenBox.fbx");
-  
-    /*Quad* qu = new Quad;
-    hr = qu->Initialize();*/
-
-   /* Dice* d = new Dice();
-    hr = d->Initialize();*/
-
-   /* std::string textureData("Asset\\sample.png");
-    Sprite* pSprite = new Sprite();
-    hr2 = pSprite->Load(textureData);*/
-    
-
-    if (FAILED(hr))
-    {
-        MessageBox(NULL, L"Quadの初期化失敗", NULL, MB_OK);
-        return 0;
-    }
-
-    if (FAILED(hr2))
-    {
-        MessageBox(NULL, L"Quadの初期化失敗", NULL, MB_OK);
-        return 0;
-    }
 
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
@@ -130,62 +88,17 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         {
             //カメラの更新
             Camera::Update();
-            //ゲームの処理
+            //ゲームの処理　描画開始処理
             Direct3D::BeginDraw();
-           // XMMATRIX mat = XMMatrixIdentity();
-            
-            //XMMATRIX mat = XMMatrixScaling(1 / 2.0f, 1 / 2.0f, 1.0f);
-            //pSprite->Draw(mat);
+ 
+            //ゲームの内容を書いていく
 
-            //回転
-            //static float rot = 0.0;
-            //rot += 0.001;
-            ////角度をラジアンにするなら XMConvertToRadians
-            ////ラジアンを角度にするならXMCOnvertToDegrees
-            //XMMATRIX rmat = XMMatrixRotationX(rot);
-            //rmat = rmat * XMMatrixRotationY(XMConvertToRadians(45.0));
-            //
-            //static float factor = 0.0;
-            //factor += 0.001;
-            //float scale = 1.5 + sin(factor);
-            ////XMMATRIX smat = XMMatrixScaling(scale, scale, scale);
-           // XMMATRIX tmat = XMMatrixTranslation(2.0 * sin(factor), 0, 0);
-          //  XMMATRIX mat = smat * rmat * tmat;
-
-           // XMMATRIX tmat = XMMatrixTranslation(3.0*cos(factor), 1.5*sin(factor), 0.0f);
-            //単位行列　数字の1と同じ
-         //   XMMATRIX mat = XMMatrixIdentity();
-            //mat = rmat /** tmat*/;
-            ////qu->Draw(mat);
-            //di->Draw(mat);
-
-            Transform trs;
-            Transform t;
-            //t.scale_ = { 1,1,1 };
-
-            static float rot = 0;
-            trs.scale_ = { 0.5,0.5,0.5 };
-           
-            trs.rotate_.y = rot * 0.5;
-            rot = rot + 0.1;
-
-            //t.position_.x += 0.5;
-          //  t.scale_ = { 0.2,0.2,0.2 };
-            fbx.Draw(trs);
-           // d->Draw(trs);
-            /*qu->Draw(t);*/
-            //qu->Draw(trs);
-            //pSprite->Draw(t);
-
-            //描画処理
+            //描画終了処理
             Direct3D::EndDraw();
             
         }
     }
 
-   // SAFE_DELETE(qu);
-    //SAFE_DELETE(d);
-    //SAFE_DELETE(pSprite);
     Direct3D::Release();
 	return 0;
 }

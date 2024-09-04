@@ -13,80 +13,71 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ソース ファイル\Shader">
-      <UniqueIdentifier>{1c462769-6cf7-4df7-9d2c-232b743d629a}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine">
+      <UniqueIdentifier>{e336b134-8a3f-4e2d-acd1-5b5f241f7e93}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\DirectXETC">
-      <UniqueIdentifier>{d53f68c5-84d9-4708-9877-d90bfe24fa3a}</UniqueIdentifier>
+    <Filter Include="ソース ファイル\Engine\SHADER">
+      <UniqueIdentifier>{7f55d65e-d3de-43b7-a351-763da0af8b6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Object">
-      <UniqueIdentifier>{a6317372-bb83-4a17-9571-8d936d6c4851}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="WinMain.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClCompile>
-    <ClCompile Include="Direct3D.cpp">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClCompile>
-    <ClCompile Include="Dice.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Quad.cpp">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClCompile>
-    <ClCompile Include="FBX.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClInclude>
-    <ClInclude Include="Direct3D.h">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClInclude>
-    <ClInclude Include="Quad.h">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Dice.h">
-      <Filter>ソース ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>ソース ファイル\DirectXETC</Filter>
-    </ClInclude>
-    <ClInclude Include="FBX.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="Simple2D.hlsl">
-      <Filter>ソース ファイル\Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="Simple3D.hlsl">
-      <Filter>ソース ファイル\Shader</Filter>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Direct3D.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\FBX.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Quad.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Sprite.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Texture.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Transform.cpp">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="WinMain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Direct3D.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\FBX.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Quad.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Sprite.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Texture.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Transform.h">
+      <Filter>ソース ファイル\Engine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Engine\Simple2D.hlsl">
+      <Filter>ソース ファイル\Engine\SHADER</Filter>
+    </FxCompile>
+    <FxCompile Include="Engine\Simple3D.hlsl">
+      <Filter>ソース ファイル\Engine\SHADER</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
