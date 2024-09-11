@@ -2,16 +2,19 @@
 #include <Windows.h>
 #include"Engine/Direct3D.h"
 #include"Engine/Camera.h"
-
+#include"Engine/RootJob.h"
 #pragma comment(lib,"d3d11.lib")
 
-namespace{
+
 //定数宣言
 const wchar_t* WIN_CLASS_NAME = L"SampleGame";//ウィンドウクラス名
 const wchar_t* APP_GAME = L"サンプルゲーム";//アプリケーション名
+
+RootJob* pRootJob = nullptr;
+
 const int WINDOW_WIDTH = 800;//ウィンドウ幅
 const int WINDOW_HEIGHT = 600;//ウィンドウの高さ
-}
+
 
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -71,6 +74,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
     Camera::Initialize();
 
+    pRootJob = new RootJob;
+    pRootJob->Initialize();
+
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
     ZeroMemory(&msg, sizeof(msg));
@@ -88,9 +94,15 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         {
             //カメラの更新
             Camera::Update();
+            //ルートジョブからつながるすべてのオブジェクトをUPDATEする
+            pRootJob->Update();
+
             //ゲームの処理　描画開始処理
             Direct3D::BeginDraw();
- 
+            
+            //ルートジョブからつながるすべてのオブジェクトをDRAWする
+         //   pRootJob->Draw();
+
             //ゲームの内容を書いていく
 
             //描画終了処理
@@ -98,7 +110,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             
         }
     }
-
+    pRootJob->Release();
     Direct3D::Release();
 	return 0;
 }
@@ -108,9 +120,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     switch (msg)
     {
-    case WM_DESTROY:
+    case WM_DESTROY://ウィンドウが閉じられたら（イベント）
         PostQuitMessage(0);  //プログラム終了
         return 0;
+        //WM_CLOSE Xボタン
+        //WM_
     }
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
