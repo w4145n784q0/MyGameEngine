@@ -68,14 +68,14 @@ float4 PS(VS_OUT inData) : SV_Target
     float4 Kd = g_texture.Sample(g_sampler, inData.uv);//テクスチャの色をサンプリング
     float cos_alpha = inData.cos_alpha;//拡散反射係数の計算（光源ベクトルと面の法線のcos）
     float4 ambentSource = { 0.2, 0.2, 0.2, 1.0 }; //環境光の強さ
-   if(isTextured == false)
-    {
-        return Id * diffuseColor * cos_alpha + Id * diffuseColor * ambentSource;
-    }
-    else
-    {
-        return Id * Kd * cos_alpha + Id * Kd * ambentSource;
-    }
+   //if(isTextured == false)
+   /// {
+        return Id * Kd* diffuseColor * cos_alpha + Id* Kd * diffuseColor * ambentSource;
+   // }
+    //else
+    //{
+    //    return Id * Kd * cos_alpha + Id * Kd * ambentSource;
+    //}
     
     //return g_texture.Sample(g_sampler, inData.uv);
     //return g_texture.Sample(g_sampler, my);

@@ -1,10 +1,13 @@
 //インクルード
+#define _CRT_SECURE_NO_WARNINGS
 #include <Windows.h>
+#include<cstdlib>//ｃ＋＋から呼んでもＯＫ
 #include"Engine/Direct3D.h"
 #include"Engine/Camera.h"
 #include"Engine/RootJob.h"
-#pragma comment(lib,"d3d11.lib")
 
+#pragma comment(lib,"d3d11.lib")
+#pragma comment(lib, "winmm.lib")
 
 //定数宣言
 const wchar_t* WIN_CLASS_NAME = L"SampleGame";//ウィンドウクラス名
@@ -91,17 +94,47 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
         //メッセージなし
         else
-        {
+        {//このかっこ内が1フレーム
+
+            timeBeginPeriod(1);
+            static DWORD startTime = timeGetTime();//timeGetTime() ->windowが起動してからの時間をミリ秒
+            DWORD nowTime = timeGetTime();
+            timeEndPeriod(1);
+
+            static DWORD lastUpdateTime = nowTime;
+            static DWORD countFps = 0;// DWORD unsigned longの意味
+            //char str[16];
+
+            if (nowTime - startTime >= 1000)
+            {
+                std::wstring str;
+                wsprintf(str.data(), L"%u", countFps);
+                SetWindowTextW(hWnd, str.c_str());
+
+                countFps = 0;
+                startTime = nowTime;
+            }
+
+            if (nowTime - lastUpdateTime <= 1000.0f / 60.0f)//1/60秒
+            {
+                continue;//ここから下の処理をスルーして上に戻す　
+            }
+            //1/60秒たったので更新＝更新時間を今の時間に更新
+            lastUpdateTime = nowTime;
+            //wsprintf(str.data(), L"%u", nowTime - startTime);
+            countFps++;
+
             //カメラの更新
             Camera::Update();
             //ルートジョブからつながるすべてのオブジェクトをUPDATEする
-            pRootJob->Update();
+            pRootJob->UpdateSub();
 
             //ゲームの処理　描画開始処理
             Direct3D::BeginDraw();
             
-            //ルートジョブからつながるすべてのオブジェクトをDRAWする
-         //   pRootJob->Draw();
+            //ルートジョブからつながるすべてのオブジェクトを
+            //DRAWする
+            pRootJob->DrawSub();
 
             //ゲームの内容を書いていく
 
@@ -110,7 +143,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             
         }
     }
-    pRootJob->Release();
+    pRootJob->ReleaseSub();
     Direct3D::Release();
 	return 0;
 }

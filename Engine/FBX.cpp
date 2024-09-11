@@ -288,4 +288,5 @@ void FBX::Draw(Transform& transform)
 
 void FBX::Release()
 {
+	//Ç†Ç∆Ç≈ãLèq
 }
