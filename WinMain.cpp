@@ -5,6 +5,7 @@
 #include"Engine/Direct3D.h"
 #include"Engine/Camera.h"
 #include"Engine/RootJob.h"
+#include"Input.h"
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib, "winmm.lib")
@@ -76,9 +77,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     }
 
     Camera::Initialize();
+    Input::Initialize(hWnd);
 
     pRootJob = new RootJob;
     pRootJob->Initialize();
+    
 
   //メッセージループ（何か起きるのを待つ）
     MSG msg;
@@ -126,6 +129,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
             //カメラの更新
             Camera::Update();
+
+            //入力情報の更新
+            Input::Update();
+
             //ルートジョブからつながるすべてのオブジェクトをUPDATEする
             pRootJob->UpdateSub();
 
@@ -136,6 +143,20 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             //DRAWする
             pRootJob->DrawSub();
 
+            if (Input::IsKeyUp(DIK_ESCAPE))
+            {
+                static int cnt = 0;
+                cnt++;
+                if (cnt >= 3)
+                {
+                    PostQuitMessage(0);
+                }
+            }
+
+            if (Input::IsMouseButtonUp(0))
+            {
+                
+            }
             //ゲームの内容を書いていく
 
             //描画終了処理
@@ -144,6 +165,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
         }
     }
     pRootJob->ReleaseSub();
+    Input::Release();
     Direct3D::Release();
 	return 0;
 }
@@ -160,4 +182,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         //WM_
     }
     return DefWindowProc(hWnd, msg, wParam, lParam);
+}
+
+BOOL CALLBACK DialogProc(HWND hDlg, UINT msg, WPARAM wp, LPARAM lp)
+{
+    switch (msg)
+    {
+    case WM_MOUSEMOVE:
+        Input::SetMousePosition(LOWORD(lp), HIWORD(lp));
+        return 0;
+    }
+    return FALSE;
 }

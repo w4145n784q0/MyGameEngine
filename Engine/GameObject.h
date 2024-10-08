@@ -5,6 +5,7 @@
 
 class GameObject
 {
+	bool isDead_;
 protected:
 	std::list<GameObject*>childList_;
 	Transform transform_;
@@ -23,6 +24,18 @@ public:
 	void UpdateSub();
 	void DrawSub();
 	void ReleaseSub();
+
+	void KillMe();
+
+	//inline定義
+	void SetPosition(XMFLOAT3 position)
+	{
+		transform_.position_ = position;
+	}
+	void SetPosition(float x, float y, float z)
+	{
+		SetPosition(XMFLOAT3(x, y, z));
+	}
 
 	//template <typename T>//クラスならclassとかく　ほぼ同じ
 	template <class T> //tポインタ型　仮引数のクラスに合わせた引数
