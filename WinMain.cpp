@@ -6,6 +6,7 @@
 #include"Engine/Camera.h"
 #include"Engine/RootJob.h"
 #include"Input.h"
+#include"Model.h"
 
 #pragma comment(lib,"d3d11.lib")
 #pragma comment(lib, "winmm.lib")
@@ -164,6 +165,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
             
         }
     }
+    Model::Release();
     pRootJob->ReleaseSub();
     Input::Release();
     Direct3D::Release();
