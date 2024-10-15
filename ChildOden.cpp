@@ -28,7 +28,7 @@ void ChildOden::Update()
 	transform_.rotate_.y += 3;
 	if (transform_.position_.y >= 20)
 	{
-		this->Release();
+		KillMe();
 	}
 }
 
@@ -41,5 +41,4 @@ void ChildOden::Draw()
 
 void ChildOden::Release()
 {
-	KillMe();
 }

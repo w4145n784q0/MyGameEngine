@@ -44,11 +44,12 @@ void Player::Update()
 		transform_.position_.x += 0.2;
 	}
 
-	/*if(Input::IsKey(DIK_SPACE))
+	if(Input::IsKeyUp(DIK_SPACE))
 	{
 		GameObject* pCO = Instantiate<ChildOden>(this);
-		pCO->SetPosition(0, 5, 0);
-	}*/
+		pCO->SetPosition(transform_.position_);
+		
+	}
 }
 
 void Player::Draw()

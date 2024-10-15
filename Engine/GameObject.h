@@ -36,6 +36,12 @@ public:
 	{
 		SetPosition(XMFLOAT3(x, y, z));
 	}
+	void SetScale(float sx, float sy, float sz) {
+		transform_.scale_ = { sx,sy,sz };
+	}
+	void SetRotateX(float xrotate) { transform_.position_.x = xrotate; }
+	void SetRotateY(float yrotate) { transform_.position_.y = yrotate; }
+	void SetRotateZ(float zrotate) { transform_.position_.z = zrotate; }
 
 	//template <typename T>//クラスならclassとかく　ほぼ同じ
 	template <class T> //tポインタ型　仮引数のクラスに合わせた引数
