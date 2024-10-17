@@ -1,5 +1,9 @@
 #pragma once
 #include "Engine/GameObject.h"
+
+//‘O•ûéŒ¾
+class FBX;
+
 class PlayScene :
     public GameObject
 {
