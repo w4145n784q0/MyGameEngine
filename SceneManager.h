@@ -8,8 +8,6 @@ enum SCENE_ID
 	SCENE_MAS
 };
 
-void ChangeScene(SCENE_ID nextScene);//inline’è‹`
-
 class SceneManager :
     public GameObject
 {

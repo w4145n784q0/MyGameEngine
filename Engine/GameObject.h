@@ -1,7 +1,10 @@
 #pragma once
 #include <string>
 #include<list>
+#include<string>
 #include"Transform.h"
+
+using std::string;
 
 class GameObject
 {
@@ -42,6 +45,10 @@ public:
 	void SetRotateX(float xrotate) { transform_.position_.x = xrotate; }
 	void SetRotateY(float yrotate) { transform_.position_.y = yrotate; }
 	void SetRotateZ(float zrotate) { transform_.position_.z = zrotate; }
+
+	GameObject* FindObject(string objName);
+	GameObject* GetRootJob();
+	GameObject* FindChildObject(string objName);
 
 	//template <typename T>//クラスならclassとかく　ほぼ同じ
 	template <class T> //tポインタ型　仮引数のクラスに合わせた引数

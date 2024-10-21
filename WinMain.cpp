@@ -80,7 +80,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
     Camera::Initialize();
     Input::Initialize(hWnd);
 
-    pRootJob = new RootJob;
+    pRootJob = new RootJob(nullptr);
     pRootJob->Initialize();
     
 

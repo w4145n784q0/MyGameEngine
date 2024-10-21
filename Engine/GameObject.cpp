@@ -1,5 +1,9 @@
 #include "GameObject.h"
 #include"Direct3D.h"
+#include<string>
+
+using std::string;
+
 GameObject::GameObject()
 	:pParent_(nullptr)
 {
@@ -63,4 +67,46 @@ void GameObject::ReleaseSub()
 void GameObject::KillMe()
 {
 	isDead_ = true;
+}
+
+GameObject* GameObject::FindObject(string objName)
+{
+	//Ž©•ª‚©‚ç‚Ý‚½rootjob‚ð’T‚µ‚Ä
+	//‚»‚Ìroogjob‚©‚ç‘S•”‚ÌŽq‚ð’H‚Á‚Äobjname‚ð’T‚·
+	if (this->objectName_ == objName) {
+		return this;
+	}
+	else {
+		
+		for (auto itr : childList_) {
+			GameObject* g = g->GetRootJob();
+			
+		}
+	}
+}
+
+GameObject* GameObject::GetRootJob()
+{
+	if (pParent_ == nullptr){
+		return this;
+	}
+	return pParent_->GetRootJob();
+}
+
+GameObject* GameObject::FindChildObject(string objName)
+{
+	if (this->objectName_ == objName)
+	{
+		return this;
+	}
+	else
+	{
+		for (auto itr : childList_)
+		{
+			GameObject* obj = itr->FindChildObject(objName);
+			if(obj != nullptr)
+				return obj;
+		}
+	}
+	return nullptr;
 }
