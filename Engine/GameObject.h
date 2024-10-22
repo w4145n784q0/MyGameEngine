@@ -46,6 +46,10 @@ public:
 	void SetRotateY(float yrotate) { transform_.position_.y = yrotate; }
 	void SetRotateZ(float zrotate) { transform_.position_.z = zrotate; }
 
+	int GetPositionX() { return transform_.position_.x; }
+	int GetPositionY() { return transform_.position_.y; }
+	int GetPositionZ() { return transform_.position_.z; }
+
 	GameObject* FindObject(string objName);
 	GameObject* GetRootJob();
 	GameObject* FindChildObject(string objName);
