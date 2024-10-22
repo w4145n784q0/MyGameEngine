@@ -25,12 +25,17 @@ void SceneManager::Update()
     if (currentSceneID != nextSceneID)
     {
         //そのシーンのオブジェクトを全削除（子オブジェクトを全削除）
-        for (auto itr : childList_)
+        /*for (auto itr : childList_)
         {
             itr->ReleaseSub();
             SAFE_DELETE(itr);
             childList_.clear();
         }
+        Model::Release();*/
+        auto scene = childList_.begin();
+        (*scene)->ReleaseSub();
+        SAFE_DELETE(*scene);
+        childList_.clear();
         Model::Release();
 
         //ロードしたデータを全削除

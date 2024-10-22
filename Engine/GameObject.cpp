@@ -73,16 +73,9 @@ GameObject* GameObject::FindObject(string objName)
 {
 	//Ž©•ª‚©‚ç‚Ý‚½rootjob‚ð’T‚µ‚Ä
 	//‚»‚Ìroogjob‚©‚ç‘S•”‚ÌŽq‚ð’H‚Á‚Äobjname‚ð’T‚·
-	if (this->objectName_ == objName) {
-		return this;
-	}
-	else {
-		
-		for (auto itr : childList_) {
-			GameObject* g = g->GetRootJob();
-			
-		}
-	}
+	GameObject* rootJob = GetRootJob();
+	GameObject* res = rootJob->FindChildObject(objName);
+	return (res);
 }
 
 GameObject* GameObject::GetRootJob()

@@ -12,8 +12,9 @@ void TestScene::Initialize()
 
 void TestScene::Update()
 {
-	if (Input::IsKeyUp(DIK_A)) {
-
+	if (Input::IsKeyUp(DIK_SPACE)) {
+		SceneManager* ps = (SceneManager*)FindObject("SceneManager");
+		ps->ChangeScene(SCENE_ID_PLAY);
 	}
 
 }
