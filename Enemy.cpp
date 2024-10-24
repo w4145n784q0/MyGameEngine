@@ -1,5 +1,6 @@
 #include "Enemy.h"
 #include"Model.h"
+#include"SphereCollider.h"
 Enemy::Enemy(GameObject* parent)
 	:GameObject(parent,"Enemy"),hModel(-1)
 {
@@ -11,6 +12,8 @@ void Enemy::Initialize()
 	transform_.position_.y = 2.5f;
 	transform_.scale_ = { 0.5,0.5,0.5 };
 	transform_.rotate_.x = 180;
+	SphereCollider* col = new SphereCollider(0.1f);
+	this->AddCollider(col);
 }
 
 void Enemy::Update()

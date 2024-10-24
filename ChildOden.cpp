@@ -2,6 +2,7 @@
 #include"Engine/FBX.h"
 #include"Model.h"
 #include"Enemy.h"
+#include"SphereCollider.h"
 
 ChildOden::ChildOden(GameObject* parent)
 	:GameObject(parent,"ChildOden"), hModel(-1)/*pFbx(nullptr)*/
@@ -14,12 +15,11 @@ ChildOden::~ChildOden()
 
 void ChildOden::Initialize()
 {
-	/*pFbx = new FBX();
-	pFbx->Load("Assets//oden.fbx");*/
 	hModel = Model::Load("Assets//oden.fbx");
 	transform_.scale_ = { 0.2,0.2,0.2 };
-	/*transform_.position_.x = 2.0f;
-	transform_.position_.y = 1.0f;*/
+	
+	SphereCollider * col = new SphereCollider(0.5f);
+	this->AddCollider(col);
 
 }
 
@@ -30,7 +30,7 @@ void ChildOden::Update()
 	Enemy* enemy = (Enemy*)FindObject("Enemy");
 
 	//’e‚Æ“G‚Ì“ñ“_ŠÔ‚Ì‹——£@ƒ@“G‚Ì’†‰›‚©‚ç‚Ì‹——£+’e‚Ì’†‰›‚©‚ç‚Ì‹——£
-	float r1 = 0.1;
+	/*float r1 = 0.1;
 	float r2 = 0.5;
 	XMFLOAT3 P1 = enemy->GetPosition();
 	XMFLOAT3 P2 = transform_.position_;
@@ -40,7 +40,7 @@ void ChildOden::Update()
 	if (d <= r1 + r2)
 	{
 		KillMe();
-	}
+	}*/
 
 	if (transform_.position_.y >= 20)
 	{
@@ -57,4 +57,10 @@ void ChildOden::Draw()
 
 void ChildOden::Release()
 {
+}
+
+void ChildOden::OnCollision(GameObject* pTarget)
+{
+	KillMe();
+	pTarget->KillMe();
 }

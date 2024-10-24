@@ -6,15 +6,17 @@
 
 using std::string;
 
+class SphereCollider;
+
 class GameObject
 {
 	bool isDead_;
 protected:
 	std::list<GameObject*>childList_;
 	Transform transform_;
-	GameObject*	pParent_;
+	GameObject* pParent_;
 	std::string objectName_;
-
+	SphereCollider* pCollider_;
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
@@ -49,10 +51,15 @@ public:
 	int GetPositionX() { return transform_.position_.x; }
 	int GetPositionY() { return transform_.position_.y; }
 	int GetPositionZ() { return transform_.position_.z; }
+	XMFLOAT3 GetPosition() { return transform_.position_; }
 
 	GameObject* FindObject(string objName);
 	GameObject* GetRootJob();
 	GameObject* FindChildObject(string objName);
+	void AddCollider(SphereCollider* pColl);
+	void Collision(GameObject* pTarget);
+	void RoundRobin(GameObject* pTarget);
+	virtual void OnCollision(GameObject* pTarget) {};
 
 	//template <typename T>//クラスならclassとかく　ほぼ同じ
 	template <class T> //tポインタ型　仮引数のクラスに合わせた引数

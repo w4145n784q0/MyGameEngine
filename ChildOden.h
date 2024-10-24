@@ -15,5 +15,7 @@ public:
 	void Update();
 	void Draw();
 	void Release();
+
+	void OnCollision(GameObject* pTarget) override;
 };
 
