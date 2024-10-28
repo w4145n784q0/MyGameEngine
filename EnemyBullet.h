@@ -1,19 +1,20 @@
 #pragma once
 #include "Engine/GameObject.h"
-class Enemy :
+class FBX;
+
+class EnemyBullet :
     public GameObject
 {
-	int hModel;
-	int SpawnTime_;
+	int hModel_;
 public:
-	Enemy(GameObject* parent);
-	~Enemy() {};
+	EnemyBullet(GameObject* parent);
+	~EnemyBullet() {};
 
 	void Initialize() override;
 	void Update() override;
 	void Draw() override;
 	void Release() override;
 
-	XMFLOAT3 GetPosition() { return transform_.position_; }
+	void OnCollision(GameObject* pTarget) override;
 };
 
