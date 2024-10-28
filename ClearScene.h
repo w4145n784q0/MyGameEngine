@@ -7,7 +7,7 @@ class ClearScene :
 {
 private:
 	int hImage_;
-	Sprite* spr;
+	Sprite* spr_;
 public:
 	ClearScene(GameObject* parent);
 	~ClearScene() {};

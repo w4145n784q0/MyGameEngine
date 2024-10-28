@@ -9,6 +9,8 @@ TitleScene::TitleScene(GameObject* parent)
 
 void TitleScene::Initialize()
 {
+	spr_ = new Sprite();
+	hImage_ = spr_->Load("Assets//sample.png");
 }
 
 void TitleScene::Update()
@@ -21,6 +23,10 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	Transform trs;
+	trs.position_ = { 0,0,0 };
+	trs.scale_ = { 0.5,0.5,0.5 };
+	spr_->Draw(trs);
 }
 
 void TitleScene::Release()

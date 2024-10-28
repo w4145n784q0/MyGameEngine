@@ -350,7 +350,8 @@ HRESULT Sprite::LoadTexture(std::string filename)
 	assert(fs::is_regular_file(filename));
 
 	HRESULT hr;
-	hr = pTexture_->Load("Assets\\sample.png");//スペルに要注意
+	//hr = pTexture_->Load("Assets\\sample.png");//スペルに要注意
+	hr = pTexture_->Load(filename);//引数のパスをロード
 	if (FAILED(hr))
 	{
 		MessageBox(NULL, L"テクスチャの作成に失敗しました", L"エラー", MB_OK);

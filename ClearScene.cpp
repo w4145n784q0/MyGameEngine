@@ -3,13 +3,14 @@
 #include"Input.h"
 
 ClearScene::ClearScene(GameObject* parent)
-	:GameObject(parent,"ClearScene"),hImage_(-1),spr(nullptr)
+	:GameObject(parent,"ClearScene"),hImage_(-1),spr_(nullptr)
 {
 }
 
 void ClearScene::Initialize()
 {
-	//hImage_ = spr->Load("Assets//sample.png");
+	spr_ = new Sprite();
+	hImage_ = spr_->Load("Assets//c.png");
 }
 
 void ClearScene::Update()
@@ -23,8 +24,9 @@ void ClearScene::Update()
 void ClearScene::Draw()
 {
 	Transform trs;
-	trs.position_ = { 100,100,0 };
-	//spr->Draw(trs);
+	trs.position_ = { 0,0,0 };
+	trs.scale_ = {0.5,0.5,0.5};
+	spr_->Draw(trs);
 }
 
 void ClearScene::Release()

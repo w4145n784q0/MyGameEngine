@@ -53,7 +53,7 @@ HRESULT Texture::Load(std::string fileName)
 	srv.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	srv.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	srv.Texture2D.MipLevels = 1;
-	hr = CreateShaderResourceView(Direct3D::pDevice,
+	hr = CreateShaderResourceView(Direct3D::pDevice,//Ç±Ç±Ç≈Ç¶ÇÁÅ[
 		image.GetImages(), image.GetImageCount(), metadata, &pSRV_);
 	if (FAILED(hr))
 	{
