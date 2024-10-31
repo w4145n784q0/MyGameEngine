@@ -3,6 +3,7 @@
 #include"ChildOden.h"
 #include"Input.h"
 #include"Model.h"
+#include"SphereCollider.h"
 
 Player::Player(GameObject* parent)
 	:GameObject(parent,"Player"),hModel(-1)/*pOden(nullptr)*/
@@ -20,6 +21,9 @@ void Player::Initialize()
 	hModel = Model::Load("Assets//oden.fbx");
 	transform_.scale_ = { 0.4,0.4,0.4 };
 	transform_.position_ = { 0,-2,0 };
+
+	SphereCollider* col = new SphereCollider(0.1f);
+	this->AddCollider(col);
 
 	/*GameObject *pCO = Instantiate<ChildOden>(this);
 	pCO->SetPosition(0, 0, -1);
@@ -48,19 +52,16 @@ void Player::Update()
 	{
 		GameObject* pCO = Instantiate<ChildOden>(this);
 		pCO->SetPosition(transform_.position_);
-		
 	}
 }
 
 void Player::Draw()
 {
-	//pOden->Draw(transform_);
 	Model::SetTransform(hModel, transform_);
 	Model::Draw(hModel);
 }
 
 void Player::Release()
 {
-	/*pOden->Release();
-	delete pOden;*/
+	this->Release();
 }
