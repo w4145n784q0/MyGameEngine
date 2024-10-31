@@ -6,7 +6,7 @@
 #include"SphereCollider.h"
 
 Player::Player(GameObject* parent)
-	:GameObject(parent,"Player"),hModel(-1)/*pOden(nullptr)*/
+	:GameObject(parent,"Player"),hModel(-1)
 {
 }
 
@@ -21,6 +21,7 @@ void Player::Initialize()
 	hModel = Model::Load("Assets//oden.fbx");
 	transform_.scale_ = { 0.4,0.4,0.4 };
 	transform_.position_ = { 0,-2,0 };
+	SetHp(3);
 
 	SphereCollider* col = new SphereCollider(0.1f);
 	this->AddCollider(col);
@@ -52,6 +53,10 @@ void Player::Update()
 	{
 		GameObject* pCO = Instantiate<ChildOden>(this);
 		pCO->SetPosition(transform_.position_.x,transform_.position_.y ,transform_.position_.z);
+	}
+
+	if (GetHp() <= 0) {
+		KillMe();
 	}
 }
 

@@ -45,6 +45,8 @@ void EnemyBullet::Release()
 
 void EnemyBullet::OnCollision(GameObject* pTarget)
 {
+	/*KillMe();
+	pTarget->KillMe();*/
 	KillMe();
-	pTarget->KillMe();
+	pTarget->Damage();
 }

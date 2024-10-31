@@ -11,7 +11,7 @@ GameObject::GameObject()
 }
 
 GameObject::GameObject(GameObject* parent, const std::string& name)
-	:pParent_(parent),objectName_(name),isDead_(false),pCollider_(nullptr)
+	:pParent_(parent),objectName_(name),isDead_(false),pCollider_(nullptr),Hp_(0)
 {
 	if (parent != nullptr) {
 		this->transform_.pParent_ = &(parent->transform_);

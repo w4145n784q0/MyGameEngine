@@ -2,7 +2,7 @@
 #include"SceneManager.h"
 #include"Input.h"
 GameOverScene::GameOverScene(GameObject* parent)
-	:GameObject(parent,"GameOverScene"), hImage_(-1), spr_(nullptr)//gameover.png
+	:GameObject(parent,"GameOverScene"), hImage_(-1), spr_(nullptr)
 {
 }
 

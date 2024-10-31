@@ -63,8 +63,10 @@ void ChildOden::OnCollision(GameObject* pTarget)
 {
 	if (pTarget == FindObject("Enemy") || pTarget == FindObject("EnemyBullet"))
 	{
+		/*KillMe();
+		pTarget->KillMe();*/
 		KillMe();
-		pTarget->KillMe();
+		pTarget->Damage();
 	}
 
 }

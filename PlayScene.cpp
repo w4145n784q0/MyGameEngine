@@ -2,6 +2,7 @@
 #include"Player.h"
 #include"Enemy.h"
 #include"SceneManager.h"
+#include"Heart.h"
 
 PlayScene::PlayScene(GameObject* parent)
 	:GameObject(parent,"PlayScene")
@@ -21,6 +22,14 @@ void PlayScene::Initialize()
 
 	Instantiate<Player>(this);
 	Instantiate<Enemy>(this);
+	
+	Heart* pPlayerHeart =  Instantiate<Heart>(this);
+	pPlayerHeart->SetPosition(0, -0.9, 0);
+	pPlayerHeart->SetDrawCount(3);
+
+	Heart* pEnemyHeart = Instantiate<Heart>(this);
+	pEnemyHeart->SetPosition(0, 0.9, 0);
+	pEnemyHeart->SetDrawCount(5);
 }
 
 void PlayScene::Update()

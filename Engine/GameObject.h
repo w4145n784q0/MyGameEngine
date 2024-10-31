@@ -11,12 +11,14 @@ class SphereCollider;
 class GameObject
 {
 	bool isDead_;
+
 protected:
 	std::list<GameObject*>childList_;
 	Transform transform_;
 	GameObject* pParent_;
 	std::string objectName_;
 	SphereCollider* pCollider_;
+	int Hp_;
 public:
 	GameObject();
 	GameObject(GameObject* parent, const std::string& name);
@@ -31,6 +33,9 @@ public:
 	void ReleaseSub();
 
 	void KillMe();
+	int GetHp() { return Hp_; }
+	void SetHp(int hp) { Hp_ = hp; }
+	void Damage() { Hp_--; }
 
 	//inline’è‹`
 	void SetPosition(XMFLOAT3 position)

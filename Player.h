@@ -5,7 +5,6 @@ class FBX;//pointa使うなら前方宣言するだけでOK　多重定義の防止に使える
 class Player :
     public GameObject
 {
-	//FBX* pOden;
 	int hModel;
 public:
 	Player(GameObject* parent);
