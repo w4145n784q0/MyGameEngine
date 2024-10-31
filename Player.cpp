@@ -51,7 +51,7 @@ void Player::Update()
 	if(Input::IsKeyUp(DIK_SPACE))
 	{
 		GameObject* pCO = Instantiate<ChildOden>(this);
-		pCO->SetPosition(transform_.position_);
+		pCO->SetPosition(transform_.position_.x,transform_.position_.y ,transform_.position_.z);
 	}
 }
 
@@ -63,5 +63,5 @@ void Player::Draw()
 
 void Player::Release()
 {
-	this->Release();
+	//this->Release();
 }
