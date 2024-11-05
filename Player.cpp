@@ -4,6 +4,7 @@
 #include"Input.h"
 #include"Model.h"
 #include"SphereCollider.h"
+#include"Heart.h"
 
 Player::Player(GameObject* parent)
 	:GameObject(parent,"Player"),hModel(-1)
@@ -34,7 +35,7 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	transform_.rotate_.y += 1;
+	//transform_.rotate_.y += 1;
 	/*if (transform_.rotate_.y > 60 * 2) 
 	{
 		KillMe();
@@ -43,10 +44,12 @@ void Player::Update()
 	if (Input::IsKey(DIK_A))
 	{
 		transform_.position_.x -= 0.2;
+		transform_.rotate_.y += 2.0;
 	}
 	if (Input::IsKey(DIK_D))
 	{
 		transform_.position_.x += 0.2;
+		transform_.rotate_.y -= 2.0;
 	}
 
 	if(Input::IsKeyUp(DIK_SPACE))

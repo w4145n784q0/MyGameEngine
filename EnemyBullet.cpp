@@ -22,11 +22,21 @@ void EnemyBullet::Initialize()
 
 void EnemyBullet::Update()
 {
-	transform_.position_.y -= 0.3;
-	transform_.rotate_.y += 3;
-	Player* player = (Player*)FindObject("Player");
+	Player* player = (Player*)FindObject("Player");//‹¤’Ê
+	switch (attacktype)
+	{
+	case 0:
+		Attack1();
+	case 1:
+		Attack2();
+	default:
+		break;
+	}
 
-	if (transform_.position_.y <= -20)
+	/*transform_.position_.y -= 0.3;
+	transform_.rotate_.y += 3;*/
+
+	if (transform_.position_.y <= -20)//‹¤’Ê
 	{
 		KillMe();
 	}
@@ -43,10 +53,20 @@ void EnemyBullet::Release()
 {
 }
 
+void EnemyBullet::Attack1()
+{
+	transform_.position_.y -= 0.3;
+	transform_.rotate_.y += 3;
+}
+
+void EnemyBullet::Attack2()
+{
+	transform_.position_.y -= 0.5;
+	transform_.rotate_.y += 3;
+}
+
 void EnemyBullet::OnCollision(GameObject* pTarget)
 {
-	/*KillMe();
-	pTarget->KillMe();*/
-	KillMe();
+ 	KillMe();
 	pTarget->Damage();
 }

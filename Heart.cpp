@@ -13,10 +13,8 @@ Heart::Heart(GameObject* parent)
 void Heart::Initialize()
 {
 	spr_ = new Sprite();
-	hImage_ = spr_->Load("Assets//hud_heartFull.png");
+	hImage_ = spr_->Load("Assets//bar.png");
 	transform_.scale_ = { size,size,size };
-
-	
 }
 
 void Heart::Update()
@@ -30,7 +28,7 @@ void Heart::Draw()
 	{
 		Transform trs;
 		trs = transform_;
-		trs.position_.x * i + 10;
+		trs.position_.x  = 0.1 * i;
 		spr_->Draw(trs);
 	}
 

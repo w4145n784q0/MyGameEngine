@@ -2,6 +2,8 @@
 #include"Model.h"
 #include"SphereCollider.h"
 #include"EnemyBullet.h"
+#include"Heart.h"
+#include"Player.h"
 
 namespace {
 	int spawncount = 60;
@@ -18,13 +20,15 @@ void Enemy::Initialize()
 	transform_.position_.y = 2.5f;
 	transform_.scale_ = { 0.5,0.5,0.5 };
 	transform_.rotate_.x = 180;
-	SetHp(2);
+	SetHp(5);
 	SphereCollider* col = new SphereCollider(0.1f);
 	this->AddCollider(col);
+
 }
 
 void Enemy::Update()
 {
+	int r = rand() % 2;
 	//ˆÚ“®‚·‚é
 	static int dt;
 	dt += 5;
@@ -34,8 +38,11 @@ void Enemy::Update()
 	if (--SpawnTime_ < 0)
 	{
 		SpawnTime_ = spawncount;
-		GameObject* pGO = Instantiate<EnemyBullet>(this);
-		pGO->SetPosition(transform_.position_);	
+		/*GameObject* pGO = Instantiate<EnemyBullet>(this);
+		pGO->SetPosition(transform_.position_);	*/
+		EnemyBullet* pEB = Instantiate<EnemyBullet>(this);
+		pEB->SetPosition(transform_.position_);
+		pEB->SetAttack(r);
 	}
 
 	if (GetHp() <= 0) {

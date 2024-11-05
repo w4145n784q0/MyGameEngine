@@ -1,5 +1,7 @@
 #pragma once
 #include "Engine/GameObject.h"
+#include"Heart.h"
+
 class Enemy :
     public GameObject
 {

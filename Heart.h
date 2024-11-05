@@ -7,6 +7,7 @@ class Heart :
 {
 private:
 	int hImage_;
+	int hImage2_;
 	Sprite* spr_;
 	int DrawCount_;
 public:
