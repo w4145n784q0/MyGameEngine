@@ -4,7 +4,10 @@
 #include"Input.h"
 #include"Model.h"
 #include"SphereCollider.h"
-#include"Heart.h"
+
+namespace {
+	int mylife = 3;
+}
 
 Player::Player(GameObject* parent)
 	:GameObject(parent,"Player"),hModel(-1)
@@ -22,7 +25,7 @@ void Player::Initialize()
 	hModel = Model::Load("Assets//oden.fbx");
 	transform_.scale_ = { 0.4,0.4,0.4 };
 	transform_.position_ = { 0,-2,0 };
-	SetHp(3);
+	SetHp(mylife);
 
 	SphereCollider* col = new SphereCollider(0.1f);
 	this->AddCollider(col);

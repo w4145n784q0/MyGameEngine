@@ -2,7 +2,6 @@
 #include"Player.h"
 #include"Enemy.h"
 #include"SceneManager.h"
-#include"Heart.h"
 
 PlayScene::PlayScene(GameObject* parent)
 	:GameObject(parent,"PlayScene")

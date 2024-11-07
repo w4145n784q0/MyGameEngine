@@ -27,8 +27,10 @@ void EnemyBullet::Update()
 	{
 	case 0:
 		Attack1();
+		break;
 	case 1:
 		Attack2();
+		break;
 	default:
 		break;
 	}
@@ -61,7 +63,7 @@ void EnemyBullet::Attack1()
 
 void EnemyBullet::Attack2()
 {
-	transform_.position_.y -= 0.5;
+	transform_.position_.y -= 0.15;
 	transform_.rotate_.y += 3;
 }
 

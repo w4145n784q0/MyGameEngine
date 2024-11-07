@@ -2,11 +2,11 @@
 #include"Model.h"
 #include"SphereCollider.h"
 #include"EnemyBullet.h"
-#include"Heart.h"
 #include"Player.h"
 
 namespace {
 	int spawncount = 60;
+	const int enemylife = 5;
 }
 
 Enemy::Enemy(GameObject* parent)
@@ -20,7 +20,7 @@ void Enemy::Initialize()
 	transform_.position_.y = 2.5f;
 	transform_.scale_ = { 0.5,0.5,0.5 };
 	transform_.rotate_.x = 180;
-	SetHp(5);
+	SetHp(enemylife);
 	SphereCollider* col = new SphereCollider(0.1f);
 	this->AddCollider(col);
 
