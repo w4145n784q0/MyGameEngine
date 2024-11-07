@@ -7,6 +7,8 @@ class EnemyBullet :
 {
 	int hModel_;
 	int attacktype;
+	float movevalue;//ˆÚ“®—Ê
+	
 public:
 	EnemyBullet(GameObject* parent);
 	~EnemyBullet() {};
@@ -18,6 +20,7 @@ public:
 
 	void Attack1();
 	void Attack2();
+	void Attack3();
 
 	void SetAttack(int attack) { attacktype = attack; }
 

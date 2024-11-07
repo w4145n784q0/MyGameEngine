@@ -5,6 +5,12 @@
 #include"SphereCollider.h"
 #include"SceneManager.h"
 
+namespace {
+	const int DeadLine = 20;
+	float childpos = 0.3f;
+	float rot = 3.0f;
+}
+
 ChildOden::ChildOden(GameObject* parent)
 	:GameObject(parent,"ChildOden"), hModel(-1)/*pFbx(nullptr)*/
 {
@@ -26,8 +32,8 @@ void ChildOden::Initialize()
 
 void ChildOden::Update()
 {
-	transform_.position_.y += 0.3;
-	transform_.rotate_.y += 3;
+	transform_.position_.y += childpos;
+	transform_.rotate_.y += rot;
 	Enemy* enemy = (Enemy*)FindObject("Enemy");
 
 	/*//’e‚Æ“G‚Ì“ñ“_ŠÔ‚Ì‹——£@ƒ@“G‚Ì’†‰›‚©‚ç‚Ì‹——£+’e‚Ì’†‰›‚©‚ç‚Ì‹——£
@@ -42,7 +48,7 @@ void ChildOden::Update()
 		KillMe();
 	}*/
 
-	if (transform_.position_.y >= 20)
+	if (transform_.position_.y >= DeadLine)
 	{
 		KillMe();
 	}

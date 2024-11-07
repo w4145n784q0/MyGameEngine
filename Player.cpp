@@ -7,6 +7,8 @@
 
 namespace {
 	int mylife = 3;
+	float rot = 2.0f;
+	float move = 0.2f;
 }
 
 Player::Player(GameObject* parent)
@@ -46,14 +48,19 @@ void Player::Update()
 
 	if (Input::IsKey(DIK_A))
 	{
-		transform_.position_.x -= 0.2;
-		transform_.rotate_.y += 2.0;
+		transform_.position_.x -= move;
+		transform_.rotate_.y += rot;
 	}
 	if (Input::IsKey(DIK_D))
 	{
-		transform_.position_.x += 0.2;
-		transform_.rotate_.y -= 2.0;
+		transform_.position_.x += move;
+		transform_.rotate_.y -= rot;
 	}
+
+	/*if (transform_.position_.x <= -4.0f)
+	{
+		int i = 0;
+	}*/
 
 	if(Input::IsKeyUp(DIK_SPACE))
 	{

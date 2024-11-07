@@ -10,12 +10,12 @@ ClearScene::ClearScene(GameObject* parent)
 void ClearScene::Initialize()
 {
 	spr_ = new Sprite();
-	hImage_ = spr_->Load("Assets//c.png");
+	hImage_ = spr_->Load("Assets//gameclear.png");
 }
 
 void ClearScene::Update()
 {
-	if (Input::IsKeyUp(DIK_SPACE)) {
+	if (Input::IsKeyUp(DIK_P)) {
 		SceneManager* ps = (SceneManager*)FindObject("SceneManager");
 		ps->ChangeScene(SCENE_ID_TITLE);
 	}

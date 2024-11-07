@@ -10,12 +10,13 @@ TitleScene::TitleScene(GameObject* parent)
 void TitleScene::Initialize()
 {
 	spr_ = new Sprite();
-	hImage_ = spr_->Load("Assets//sample.png");
+	hImage_ = spr_->Load("Assets//title_oden.png");
+	
 }
 
 void TitleScene::Update()
 {
-	if (Input::IsKeyUp(DIK_SPACE)) {
+	if (Input::IsKeyUp(DIK_P)) {
 		SceneManager* ps = (SceneManager*)FindObject("SceneManager");
 		ps->ChangeScene(SCENE_ID_PLAY);
 	}
@@ -25,7 +26,7 @@ void TitleScene::Draw()
 {
 	Transform trs;
 	trs.position_ = { 0,0,0 };
-	trs.scale_ = { 0.5,0.5,0.5 };
+	trs.scale_ = { 1,1,1 };
 	spr_->Draw(trs);
 }
 

@@ -6,8 +6,17 @@
 #include"SceneManager.h"
 #include"Player.h"
 
+#include<cmath>
+
+namespace {
+	const int DeadLine = -20;
+	int rot = 180;
+	float MoveX = 0.1f;
+	const float pi = 3.14f;
+}
+
 EnemyBullet::EnemyBullet(GameObject* parent)
-	:GameObject(parent,"EnemyBullet"),hModel_(-1)
+	:GameObject(parent,"EnemyBullet"),hModel_(-1),attacktype(0),movevalue(0.0f)
 {
 }
 
@@ -31,6 +40,9 @@ void EnemyBullet::Update()
 	case 1:
 		Attack2();
 		break;
+	case 2:
+		Attack3();
+		break;
 	default:
 		break;
 	}
@@ -38,7 +50,7 @@ void EnemyBullet::Update()
 	/*transform_.position_.y -= 0.3;
 	transform_.rotate_.y += 3;*/
 
-	if (transform_.position_.y <= -20)//‹¤’Ê
+	if (transform_.position_.y <= DeadLine)//‹¤’Ê
 	{
 		KillMe();
 	}
@@ -63,12 +75,30 @@ void EnemyBullet::Attack1()
 
 void EnemyBullet::Attack2()
 {
-	transform_.position_.y -= 0.15;
+	transform_.position_.y -= 0.1;
+	transform_.rotate_.y += 3;
+
+	float val = sin(movevalue) * 0.1f;//-0.1‚©‚ç0.1
+	transform_.position_.x += val;
+	movevalue += 0.08f;
+
+	if (movevalue >= 2 * pi) 
+	{
+		movevalue -= 2 * pi;
+	}
+}
+
+void EnemyBullet::Attack3()
+{
+	transform_.position_.y -= 0.08;
 	transform_.rotate_.y += 3;
 }
 
 void EnemyBullet::OnCollision(GameObject* pTarget)
 {
- 	KillMe();
-	pTarget->Damage();
+	if (pTarget == FindObject("Player"))
+	{
+ 		KillMe();
+		pTarget->Damage();
+	}
 }
